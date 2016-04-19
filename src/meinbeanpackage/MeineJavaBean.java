@@ -23,6 +23,7 @@ public class MeineJavaBean
 		  insertOperation.InsertInto_LaborSlots("1", false, "2016-04-12");
 		  ReadOperation readOperation = new ReadOperation(connection);
 		  return readOperation.ReadFrom_LaborSlots();
+		  //dukfgkdjf
 	  }
 	  catch (DataBasePathNotFoundException ex){
 		  return ex.getMessage();

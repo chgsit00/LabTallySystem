@@ -1,84 +1,33 @@
 package management;
+
 import java.sql.Connection;
 import java.sql.SQLException;
+
 import database.DataBaseConnector;
 import database.DataBasePropertyInitializer;
 import databasesql.LaborblattSQL;
-import databasesql.LaborslotSQL;
 import exceptions.DataBasePathNotFoundException;
 import exceptions.NoAccessToDataBaseException;
 import objects.Laborblatt;
-import objects.Laborslot;
 
-public class LaborslotManagement
+public class LaborblattManagement
 {
 	private Connection Connection = null;
 	
-	public String SaveLaborSlot(String nr, boolean belegt, String termin, String laborBlattNr){
-		  
-		  try {
-			  String message = "Failure - Save-Operation did not work correctly";
-			  DataBasePropertyInitializer initializer = new DataBasePropertyInitializer();
-			  String databasePath = initializer.GetDataBasePath();
-			  DataBaseConnector connector = new DataBaseConnector(databasePath);
-			  Connection = connector.ConnectToDataBase();			  
-			  LaborslotSQL operation = new LaborslotSQL(Connection);
-			  LaborblattSQL operation2 = new LaborblattSQL(Connection);
-			  Laborblatt laborblatt = operation2.GetLaborblatt_by_LaborblattNr(laborBlattNr);
-			  if(laborblatt.LaborblattNr != null){
-				  Laborslot slot = operation.GetLaborslot_by_SlotNr(nr);
-				  if(slot.SlotNr == null || slot.SlotNr == ""){
-					  operation.InsertInto_LaborSlots(nr, belegt, termin, laborBlattNr);
-					  message = "Insert - Success";
-				  }
-				  else {
-					  operation.Update_Laborslot(nr, belegt, termin, laborBlattNr);
-					  message = "Update - Success";
-				  }
-			  }
-			  else message = "Save not possible - Laborblatt with LaborblattNr = "+laborBlattNr+" doesn't exist";
-			  System.out.println(message);
-			  return message;
-		  }
-		  catch (DataBasePathNotFoundException ex){
-			  return ex.getMessage();
-		  }
-		  catch (NoAccessToDataBaseException ac){
-			  return ac.getMessage();
-		  }
-		    finally
-		    {
-		      try
-		      {
-		        if(Connection != null)
-		          Connection.close();
-		      }
-		      catch(SQLException e)
-		      {
-		        // connection close failed.
-		        System.err.println(e);
-		      }
-		    }
-	}
-	
-	public String SaveLaborSlot(String nr, boolean belegt, String termin){
+	public String InsertLaborBlatt(String laborBlattNr){
 		  
 		  try {
 			  DataBasePropertyInitializer initializer = new DataBasePropertyInitializer();
 			  String databasePath = initializer.GetDataBasePath();
 			  DataBaseConnector connector = new DataBaseConnector(databasePath);
 			  Connection = connector.ConnectToDataBase();			  
-			  LaborslotSQL operation = new LaborslotSQL(Connection);
-			  Laborslot slot = operation.GetLaborslot_by_SlotNr(nr);
+			  LaborblattSQL operation = new LaborblattSQL(Connection);
+			  Laborblatt blatt = operation.GetLaborblatt_by_LaborblattNr(laborBlattNr);
 			  String message = "Failure - Save-Operation did not work correctly";
-			  if(slot.SlotNr == null || slot.SlotNr == ""){
-				  operation.InsertInto_LaborSlots(nr, belegt, termin);
+			  if(blatt.LaborblattNr == null || blatt.LaborblattNr == ""){
+				  operation.InsertInto_Laborblatt(laborBlattNr);
 				  message = "Insert - Success";
 			  }
-			  else {
-				  operation.Update_Laborslot(nr, belegt, termin);
-				  message = "Update - Success";
-			  }
 			  System.out.println(message);
 			  return message;
 		  }
@@ -103,14 +52,14 @@ public class LaborslotManagement
 		    }
 	}
 	
-	public String ReadAllLaborSlots(){
+	public String ReadAllLaborBlaetter(){
 		  try {
 			  DataBasePropertyInitializer initializer = new DataBasePropertyInitializer();
 			  String databasePath = initializer.GetDataBasePath();
 			  DataBaseConnector connector = new DataBaseConnector(databasePath);
 			  Connection = connector.ConnectToDataBase();			  
-			  LaborslotSQL operation = new LaborslotSQL(Connection);
-			  return operation.ReadFrom_LaborSlots();
+			  LaborblattSQL operation = new LaborblattSQL(Connection);
+			  return operation.ReadFrom_Laborblatt();
 		  }
 		  catch (DataBasePathNotFoundException ex){
 			  return ex.getMessage();
@@ -133,14 +82,14 @@ public class LaborslotManagement
 		    }
 	}
 	
-	public String DeleteLaborSlot(String slotNr){
+	public String DeleteLaborBlatt(String laborblattNr){
 		  try {
 			  DataBasePropertyInitializer initializer = new DataBasePropertyInitializer();
 			  String databasePath = initializer.GetDataBasePath();
 			  DataBaseConnector connector = new DataBaseConnector(databasePath);
 			  Connection = connector.ConnectToDataBase();			  
-			  LaborslotSQL operation = new LaborslotSQL(Connection);
-			  operation.DeleteFrom_LaborSlots(slotNr);
+			  LaborblattSQL operation = new LaborblattSQL(Connection);
+			  operation.DeleteFrom_Laborblatt(laborblattNr);
 			  return "Success";
 		  }
 		  catch (DataBasePathNotFoundException ex){

@@ -32,7 +32,8 @@ public class LaborslotSQL
 			    	String slot = result.getString("Slot");
 			        boolean belegt = result.getBoolean("Belegt");
 			        String termin = result.getString("Termin");	
-			        laborslot.setValues(slot, belegt, termin);
+			        String laborblattNr = result.getString("LaborblattNr");
+			        laborslot.setValues(slot, belegt, termin, laborblattNr);
 			    }			   
 			    return laborslot;
 			}

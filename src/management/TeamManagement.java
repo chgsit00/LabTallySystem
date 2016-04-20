@@ -1,20 +1,21 @@
 package management;
+
 import java.sql.Connection;
 import java.sql.SQLException;
+
 import database.DataBaseConnector;
 import database.DataBasePropertyInitializer;
-import databasesql.LaborblattSQL;
 import databasesql.LaborslotSQL;
+import databasesql.TeamSQL;
 import exceptions.DataBasePathNotFoundException;
 import exceptions.NoAccessToDataBaseException;
-import objects.Laborblatt;
-import objects.Laborslot;
+import objects.Team;
 
-public class LaborslotManagement
+public class TeamManagement
 {
 	private Connection Connection = null;
 	
-	public String SaveLaborSlot(String nr, boolean belegt, String termin, String laborBlattNr){
+	public String SaveTeam(String teamNr, String passwort){
 		  
 		  try {
 			  String message = "Failure - Save-Operation did not work correctly";
@@ -22,61 +23,15 @@ public class LaborslotManagement
 			  String databasePath = initializer.GetDataBasePath();
 			  DataBaseConnector connector = new DataBaseConnector(databasePath);
 			  Connection = connector.ConnectToDataBase();			  
-			  LaborslotSQL operation = new LaborslotSQL(Connection);
-			  LaborblattSQL operation2 = new LaborblattSQL(Connection);
-			  Laborblatt laborblatt = operation2.GetLaborblatt_by_LaborblattNr(laborBlattNr);
-			  if(laborblatt.LaborblattNr != null){
-				  Laborslot slot = operation.GetLaborslot_by_SlotNr(nr);
-				  if(slot.SlotNr == null || slot.SlotNr == ""){
-					  operation.InsertInto_LaborSlots(nr, belegt, termin, laborBlattNr);
-					  message = "Insert - Success";
-				  }
-				  else {
-					  operation.Update_Laborslot(nr, belegt, termin, laborBlattNr);
-					  message = "Update - Success";
-				  }
-			  }
-			  else message = "Save not possible - Laborblatt with LaborblattNr = "+laborBlattNr+" doesn't exist";
-			  System.out.println(message);
-			  return message;
-		  }
-		  catch (DataBasePathNotFoundException ex){
-			  return ex.getMessage();
-		  }
-		  catch (NoAccessToDataBaseException ac){
-			  return ac.getMessage();
-		  }
-		    finally
-		    {
-		      try
-		      {
-		        if(Connection != null)
-		          Connection.close();
-		      }
-		      catch(SQLException e)
-		      {
-		        // connection close failed.
-		        System.err.println(e);
-		      }
-		    }
-	}
-	
-	public String SaveLaborSlot(String nr, boolean belegt, String termin){
-		  
-		  try {
-			  DataBasePropertyInitializer initializer = new DataBasePropertyInitializer();
-			  String databasePath = initializer.GetDataBasePath();
-			  DataBaseConnector connector = new DataBaseConnector(databasePath);
-			  Connection = connector.ConnectToDataBase();			  
-			  LaborslotSQL operation = new LaborslotSQL(Connection);
-			  Laborslot slot = operation.GetLaborslot_by_SlotNr(nr);
-			  String message = "Failure - Save-Operation did not work correctly";
-			  if(slot.SlotNr == null || slot.SlotNr == ""){
-				  operation.InsertInto_LaborSlots(nr, belegt, termin);
+			  TeamSQL operation = new TeamSQL(Connection);
+			  Team team = operation.GetTeam_by_TeamNr(teamNr);
+			  
+			  if(team.TeamNr == null){
+				  operation.InsertInto_Team(teamNr, passwort);;
 				  message = "Insert - Success";
 			  }
 			  else {
-				  operation.Update_Laborslot(nr, belegt, termin);
+				  operation.Update_Team(teamNr, passwort);
 				  message = "Update - Success";
 			  }
 			  System.out.println(message);
@@ -103,14 +58,22 @@ public class LaborslotManagement
 		    }
 	}
 	
-	public String ReadAllLaborSlots(){
+	public String SaveTeam(String teamNr){
+		  
 		  try {
+			  String message = "Failure - Save-Operation did not work correctly";
 			  DataBasePropertyInitializer initializer = new DataBasePropertyInitializer();
 			  String databasePath = initializer.GetDataBasePath();
 			  DataBaseConnector connector = new DataBaseConnector(databasePath);
 			  Connection = connector.ConnectToDataBase();			  
-			  LaborslotSQL operation = new LaborslotSQL(Connection);
-			  return operation.ReadFrom_LaborSlots();
+			  TeamSQL operation = new TeamSQL(Connection);
+			  Team team = operation.GetTeam_by_TeamNr(teamNr);			  
+			  if(team.TeamNr == null){
+				  operation.InsertInto_Team(teamNr);;
+				  message = "Insert - Success";
+			  }
+			  System.out.println(message);
+			  return message;
 		  }
 		  catch (DataBasePathNotFoundException ex){
 			  return ex.getMessage();
@@ -133,14 +96,44 @@ public class LaborslotManagement
 		    }
 	}
 	
-	public String DeleteLaborSlot(String slotNr){
+	public String ReadAllTeam(){
 		  try {
 			  DataBasePropertyInitializer initializer = new DataBasePropertyInitializer();
 			  String databasePath = initializer.GetDataBasePath();
 			  DataBaseConnector connector = new DataBaseConnector(databasePath);
 			  Connection = connector.ConnectToDataBase();			  
-			  LaborslotSQL operation = new LaborslotSQL(Connection);
-			  operation.DeleteFrom_LaborSlots(slotNr);
+			  TeamSQL operation = new TeamSQL(Connection);
+			  return operation.ReadFrom_Team();
+		  }
+		  catch (DataBasePathNotFoundException ex){
+			  return ex.getMessage();
+		  }
+		  catch (NoAccessToDataBaseException ac){
+			  return ac.getMessage();
+		  }
+		    finally
+		    {
+		      try
+		      {
+		        if(Connection != null)
+		          Connection.close();
+		      }
+		      catch(SQLException e)
+		      {
+		        // connection close failed.
+		        System.err.println(e);
+		      }
+		    }
+	}
+	
+	public String DeleteTeam(String teamNr){
+		  try {
+			  DataBasePropertyInitializer initializer = new DataBasePropertyInitializer();
+			  String databasePath = initializer.GetDataBasePath();
+			  DataBaseConnector connector = new DataBaseConnector(databasePath);
+			  Connection = connector.ConnectToDataBase();			  
+			  TeamSQL operation = new TeamSQL(Connection);
+			  operation.DeleteFrom_Team(teamNr);
 			  return "Success";
 		  }
 		  catch (DataBasePathNotFoundException ex){

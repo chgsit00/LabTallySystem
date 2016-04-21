@@ -1,7 +1,7 @@
-package meinbeanpackage;
+package beans;
 import management.LaborslotManagement;
 
-public class MeineJavaBean
+public class LaborslotBean
 {
   public String getDateString()
   {

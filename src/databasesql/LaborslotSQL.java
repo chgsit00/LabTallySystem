@@ -23,7 +23,7 @@ public class LaborslotSQL
 			if(Connection != null){
 				Statement statement = Connection.createStatement();
 			    statement.setQueryTimeout(30);
-			    ResultSet result = statement.executeQuery("SELECT * FROM LABORSLOTS WHERE Slot ="+nr+";");
+			    ResultSet result = statement.executeQuery("SELECT * FROM LABORSLOTS WHERE Slot = '"+nr+"';");
 			    Laborslot laborslot = new Laborslot();
 			    while(result.next())
 			    {		    	
@@ -104,7 +104,7 @@ public class LaborslotSQL
 			if(Connection != null){
 				Statement statement = Connection.createStatement();
 			    statement.setQueryTimeout(30);
-			    statement.executeUpdate("UPDATE LABORSLOTS SET Slot = '"+nr+"' , Belegt = "+belegt_int+", Termin = '"+termin+"',  LaborBlattNr = '"+laborBlattNr+"' WHERE Slot = "+nr+";");
+			    statement.executeUpdate("UPDATE LABORSLOTS SET Slot = '"+nr+"' , Belegt = "+belegt_int+", Termin = '"+termin+"',  LaborBlattNr = '"+laborBlattNr+"' WHERE Slot = '"+nr+"';");
 			}
 			else throw new NoAccessToDataBaseException();
 			
@@ -126,7 +126,7 @@ public class LaborslotSQL
 			if(Connection != null){
 				Statement statement = Connection.createStatement();
 			    statement.setQueryTimeout(30);
-			    statement.executeUpdate("UPDATE LABORSLOTS SET Slot = '"+nr+"' , Belegt = "+belegt_int+", Termin = '"+termin+"' WHERE Slot = "+nr+";");
+			    statement.executeUpdate("UPDATE LABORSLOTS SET Slot = '"+nr+"' , Belegt = "+belegt_int+", Termin = '"+termin+"' WHERE Slot = '"+nr+"';");
 			}
 			else throw new NoAccessToDataBaseException();
 			
@@ -176,7 +176,7 @@ public class LaborslotSQL
 			if(Connection != null){
 				Statement statement = Connection.createStatement();
 			    statement.setQueryTimeout(30);
-			    statement.executeUpdate("DELETE FROM LABORSLOTS WHERE Slot ="+slotNr+";");
+			    statement.executeUpdate("DELETE FROM LABORSLOTS WHERE Slot = '"+slotNr+"';");
 			}
 			else throw new NoAccessToDataBaseException();
 			

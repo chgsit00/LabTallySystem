@@ -6,31 +6,31 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import exceptions.NoAccessToDataBaseException;
-import objects.Laborblatt;
+import objects.Rechner;
 
-public class LaborblattSQL
+public class RechnerSQL
 {
 	private Connection Connection = null;
-	public final String GETALLBLAETTER = "SELECT * FROM LABORBLATT;";
+	public final String GETALLRECHNER = "SELECT * FROM RECHNER;";
 	
-	public LaborblattSQL(Connection connection){
+	public RechnerSQL(Connection connection){
 		Connection = connection;
 	}
 	
-	public Laborblatt GetLaborblatt_by_LaborblattNr(String laborblattNr) throws NoAccessToDataBaseException{
+	public Rechner GetRechner_by_RechnerNr(String rechnerNr) throws NoAccessToDataBaseException{
 		try
 		{			
 			if(Connection != null){
 				Statement statement = Connection.createStatement();
 			    statement.setQueryTimeout(30);
-			    ResultSet result = statement.executeQuery("SELECT * FROM LABORBLATT WHERE LaborblattNr = '"+laborblattNr+"';");
-			    Laborblatt laborblatt = new Laborblatt();
+			    ResultSet result = statement.executeQuery("SELECT * FROM Rechner WHERE RechnerNr = '"+rechnerNr+"';");
+			    Rechner rechner = new Rechner();
 			    while(result.next())
 			    {		    	
-			        String LaborblattNr = result.getString("LaborblattNr");
-			        laborblatt.setValues(LaborblattNr);
+			        String RechnerNr = result.getString("RechnerNr");
+			        rechner.setValues(RechnerNr);
 			    }			   
-			    return laborblatt;
+			    return rechner;
 			}
 			else throw new NoAccessToDataBaseException();
 			
@@ -42,14 +42,14 @@ public class LaborblattSQL
 		}
 	}
 	
-	public void InsertInto_Laborblatt(String laborblattNr) throws NoAccessToDataBaseException
+	public void InsertInto_Rechner(String rechnerNr) throws NoAccessToDataBaseException
 	{
 		try
 		{			
 			if(Connection != null){
 				Statement statement = Connection.createStatement();
 			    statement.setQueryTimeout(30);
-			    statement.executeUpdate("INSERT INTO LABORBLATT (LaborblattNr) VALUES('"+laborblattNr+"');");
+			    statement.executeUpdate("INSERT INTO Rechner (RechnerNr) VALUES('"+rechnerNr+"');");
 			}
 			else throw new NoAccessToDataBaseException();
 			
@@ -60,19 +60,19 @@ public class LaborblattSQL
 		}
 	}
 	
-	public String ReadFrom_Laborblatt() throws NoAccessToDataBaseException
+	public String ReadFrom_Rechner() throws NoAccessToDataBaseException
 	{
 		Statement statement;
 		try
 		{
 			if(Connection != null){
 				statement = Connection.createStatement();
-			    ResultSet result = statement.executeQuery(GETALLBLAETTER);
+			    ResultSet result = statement.executeQuery(GETALLRECHNER);
 			    String out = "";
 			    while(result.next())
 			    {		    	
-			        System.out.println("LaborblattNr = " + result.getString("LaborblattNr"));
-			        out += " LaborblattNr = " + result.getString("LaborblattNr");
+			        System.out.println("RechnerNr = " + result.getString("RechnerNr"));
+			        out += " RechnerNr = " + result.getString("RechnerNr");
 			    }
 			    return out;
 			}
@@ -85,13 +85,13 @@ public class LaborblattSQL
 		}
 	}
 	
-	public void DeleteFrom_Laborblatt(String laborblattNr) throws NoAccessToDataBaseException{
+	public void DeleteFrom_Rechner(String rechnerNr) throws NoAccessToDataBaseException{
 		try
 		{			
 			if(Connection != null){
 				Statement statement = Connection.createStatement();
 			    statement.setQueryTimeout(30);
-			    statement.executeUpdate("DELETE FROM LABORBLATT WHERE LaborblattNr = '"+laborblattNr+"';");
+			    statement.executeUpdate("DELETE FROM RECHNER WHERE RechnerNr = '"+rechnerNr+"';");
 			}
 			else throw new NoAccessToDataBaseException();
 			

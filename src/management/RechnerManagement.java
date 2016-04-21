@@ -5,70 +5,27 @@ import java.sql.SQLException;
 
 import database.DataBaseConnector;
 import database.DataBasePropertyInitializer;
-import databasesql.TeamSQL;
+import databasesql.RechnerSQL;
 import exceptions.DataBasePathNotFoundException;
 import exceptions.NoAccessToDataBaseException;
-import objects.Team;
+import objects.Rechner;
 
-public class TeamManagement
+public class RechnerManagement
 {
 	private Connection Connection = null;
 	
-	public String SaveTeam(String teamNr, String passwort){
+	public String InsertRechner(String rechnerNr){
 		  
 		  try {
-			  String message = "Failure - Save-Operation did not work correctly";
 			  DataBasePropertyInitializer initializer = new DataBasePropertyInitializer();
 			  String databasePath = initializer.GetDataBasePath();
 			  DataBaseConnector connector = new DataBaseConnector(databasePath);
 			  Connection = connector.ConnectToDataBase();			  
-			  TeamSQL operation = new TeamSQL(Connection);
-			  Team team = operation.GetTeam_by_TeamNr(teamNr);
-			  
-			  if(team.TeamNr == null){
-				  operation.InsertInto_Team(teamNr, passwort);;
-				  message = "Insert - Success";
-			  }
-			  else {
-				  operation.Update_Team(teamNr, passwort);
-				  message = "Update - Success";
-			  }
-			  System.out.println(message);
-			  return message;
-		  }
-		  catch (DataBasePathNotFoundException ex){
-			  return ex.getMessage();
-		  }
-		  catch (NoAccessToDataBaseException ac){
-			  return ac.getMessage();
-		  }
-		    finally
-		    {
-		      try
-		      {
-		        if(Connection != null)
-		          Connection.close();
-		      }
-		      catch(SQLException e)
-		      {
-		        // connection close failed.
-		        System.err.println(e);
-		      }
-		    }
-	}
-	
-	public String SaveTeam(String teamNr){
-		  
-		  try {
+			  RechnerSQL operation = new RechnerSQL(Connection);
+			  Rechner rechner = operation.GetRechner_by_RechnerNr(rechnerNr);
 			  String message = "Failure - Save-Operation did not work correctly";
-			  DataBasePropertyInitializer initializer = new DataBasePropertyInitializer();
-			  String databasePath = initializer.GetDataBasePath();
-			  DataBaseConnector connector = new DataBaseConnector(databasePath);
-			  Connection = connector.ConnectToDataBase();			  
-			  TeamSQL operation = new TeamSQL(Connection);
-			  Team team = operation.GetTeam_by_TeamNr(teamNr);			  
-			  if(team.TeamNr == null){
-				  operation.InsertInto_Team(teamNr);;
+			  if(rechner.RechnerNr == null){
+				  operation.InsertInto_Rechner(rechnerNr);
 				  message = "Insert - Success";
 			  }
 			  System.out.println(message);
@@ -95,14 +52,14 @@ public class TeamManagement
 		    }
 	}
 	
-	public String ReadAllTeam(){
+	public String ReadAllRechner(){
 		  try {
 			  DataBasePropertyInitializer initializer = new DataBasePropertyInitializer();
 			  String databasePath = initializer.GetDataBasePath();
 			  DataBaseConnector connector = new DataBaseConnector(databasePath);
 			  Connection = connector.ConnectToDataBase();			  
-			  TeamSQL operation = new TeamSQL(Connection);
-			  return operation.ReadFrom_Team();
+			  RechnerSQL operation = new RechnerSQL(Connection);
+			  return operation.ReadFrom_Rechner();
 		  }
 		  catch (DataBasePathNotFoundException ex){
 			  return ex.getMessage();
@@ -125,14 +82,14 @@ public class TeamManagement
 		    }
 	}
 	
-	public String DeleteTeam(String teamNr){
+	public String DeleteRechner(String rechnerNr){
 		  try {
 			  DataBasePropertyInitializer initializer = new DataBasePropertyInitializer();
 			  String databasePath = initializer.GetDataBasePath();
 			  DataBaseConnector connector = new DataBaseConnector(databasePath);
 			  Connection = connector.ConnectToDataBase();			  
-			  TeamSQL operation = new TeamSQL(Connection);
-			  operation.DeleteFrom_Team(teamNr);
+			  RechnerSQL operation = new RechnerSQL(Connection);
+			  operation.DeleteFrom_Rechner(rechnerNr);
 			  return "Success";
 		  }
 		  catch (DataBasePathNotFoundException ex){

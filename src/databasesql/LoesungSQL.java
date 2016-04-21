@@ -6,32 +6,35 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import exceptions.NoAccessToDataBaseException;
-import objects.Team;
+import objects.Loesung;
 
-public class TeamSQL
+public class LoesungSQL
 {
 	private Connection Connection = null;
-	public final String GETALLTEAMS = "SELECT * FROM TEAM;";
+	public final String GETALLLOESUNGEN = "SELECT * FROM LOESUNG;";
 	
-	public TeamSQL(Connection connection){
+	public LoesungSQL(Connection connection){
 		Connection = connection;
 	}
 	
-	public Team GetTeam_by_TeamNr(String teamNr) throws NoAccessToDataBaseException{
+	public Loesung GetLoesung_by_AufgabeNr_and_RechnerNr(String aufgabeNr, String rechnerNr) throws NoAccessToDataBaseException{
 		try
 		{			
 			if(Connection != null){
 				Statement statement = Connection.createStatement();
 			    statement.setQueryTimeout(30);
-			    ResultSet result = statement.executeQuery("SELECT * FROM TEAM WHERE TeamNr = '"+teamNr+"';");
-			    Team team = new Team();
+			    ResultSet result = statement.executeQuery("SELECT * FROM LOESUNG WHERE AufgabeNr = '"+aufgabeNr+"' AND RechnerNr = '"+rechnerNr+"';");
+			    Loesung loesung = new Loesung();
 			    while(result.next())
 			    {		    	
-			        String TeamNr = result.getString("TeamNr");
-			        String passwort = result.getString("Passwort");
-			        team.setValues(TeamNr, passwort);
+			        // read the result set
+
+			    	String AufgabeNr = result.getString("AufgabeNr");
+			        String RechnerNr = result.getString("RechnerNr");	
+			        String Loesung = result.getString("Loesung");	
+			        loesung.setValues(Loesung, AufgabeNr, RechnerNr);
 			    }			   
-			    return team;
+			    return loesung;
 			}
 			else throw new NoAccessToDataBaseException();
 			
@@ -43,14 +46,14 @@ public class TeamSQL
 		}
 	}
 	
-	public void InsertInto_Team(String teamNr, String passwort) throws NoAccessToDataBaseException
+	public void InsertInto_Loesung(String aufgabeNr, String rechnerNr, String loesung) throws NoAccessToDataBaseException
 	{
 		try
 		{			
 			if(Connection != null){
 				Statement statement = Connection.createStatement();
 			    statement.setQueryTimeout(30);
-			    statement.executeUpdate("INSERT INTO Team (TeamNr, Passwort) VALUES('"+teamNr+"' ,'"+passwort+"');");
+			    statement.executeUpdate("INSERT INTO LOESUNG (AufgabeNr, RechnerNr, Loesung) VALUES('"+aufgabeNr+"', '"+rechnerNr+"', '"+loesung+"');");
 			}
 			else throw new NoAccessToDataBaseException();
 			
@@ -61,14 +64,13 @@ public class TeamSQL
 		}
 	}
 	
-	public void InsertInto_Team(String teamNr) throws NoAccessToDataBaseException
-	{
+	public void Update_Loesung(String aufgabeNr, String rechnerNr, String loesung) throws NoAccessToDataBaseException{
 		try
 		{			
 			if(Connection != null){
 				Statement statement = Connection.createStatement();
 			    statement.setQueryTimeout(30);
-			    statement.executeUpdate("INSERT INTO Team (TeamNr) VALUES('"+teamNr+"');");
+			    statement.executeUpdate("UPDATE LOESUNG SET AufgabeNr = '"+aufgabeNr+"',  RechnerNr = '"+rechnerNr+"', Loesung = '"+loesung+"' WHERE AufgabeNr = '"+aufgabeNr+"' AND RechnerNr = '"+rechnerNr+"';");
 			}
 			else throw new NoAccessToDataBaseException();
 			
@@ -79,37 +81,20 @@ public class TeamSQL
 		}
 	}
 	
-	public void Update_Team(String teamNr, String passwort) throws NoAccessToDataBaseException{
-		try
-		{			
-			if(Connection != null){
-				Statement statement = Connection.createStatement();
-			    statement.setQueryTimeout(30);
-			    statement.executeUpdate("UPDATE TEAM SET TeamNr = '"+teamNr+"' , Passwort = '"+passwort+"' WHERE TeamNr = '"+teamNr+"';");
-			}
-			else throw new NoAccessToDataBaseException();
-			
-		} catch (SQLException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	public String ReadFrom_Team() throws NoAccessToDataBaseException
+	public String ReadFrom_Loesung() throws NoAccessToDataBaseException
 	{
 		Statement statement;
 		try
 		{
 			if(Connection != null){
 				statement = Connection.createStatement();
-			    ResultSet result = statement.executeQuery(GETALLTEAMS);
+			    ResultSet result = statement.executeQuery(GETALLLOESUNGEN);
 			    String out = "";
 			    while(result.next())
 			    {		    	
-			        // read the result set
-			    	out += " TeamNr = " + result.getString("TeamNr");
-			        out += " Passwort = " + result.getString("Passwort");
+			    	out += " AufgabeNr = " + result.getString("AufgabeNr");
+			        out += " RechnerNr = " + result.getString("RechnerNr");
+			        out += " Loesung = " +result.getString("Loesung");
 			    }
 			    return out;
 			}
@@ -122,13 +107,13 @@ public class TeamSQL
 		}
 	}
 	
-	public void DeleteFrom_Team(String teamNr) throws NoAccessToDataBaseException{
+	public void DeleteFrom_Loesung(String aufgabeNr, String rechnerNr) throws NoAccessToDataBaseException{
 		try
 		{			
 			if(Connection != null){
 				Statement statement = Connection.createStatement();
 			    statement.setQueryTimeout(30);
-			    statement.executeUpdate("DELETE FROM TEAM WHERE TeamNr = '"+teamNr+"';");
+			    statement.executeUpdate("DELETE FROM LOESUNG WHERE AufgabeNr = '"+aufgabeNr+"' AND RechnerNr = '"+rechnerNr+"';");
 			}
 			else throw new NoAccessToDataBaseException();
 			

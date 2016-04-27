@@ -2,6 +2,8 @@ package logic;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import exceptions.DataBasePathNotFoundException;
@@ -50,6 +52,15 @@ public class TeamOverviewLogic
 			int bestandeneAufgaben = GetSolvedTasks_for_Team(teamErgebnisse);
 			teamOverviewList.add(new TeamOverview(team.TeamNr, "" + bestandeneAufgaben, aufgabentexte));
 		}
+		Collections.sort(teamOverviewList, new Comparator<TeamOverview>()
+		{
+			@Override
+			public int compare(TeamOverview overView2, TeamOverview overView1)
+			{
+
+				return overView1.BestandeneAufgabeCount.compareTo(overView2.BestandeneAufgabeCount);
+			}
+		});
 		return teamOverviewList;
 	}
 

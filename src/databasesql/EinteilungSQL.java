@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import exceptions.NoAccessToDataBaseException;
 import objects.Einteilung;
@@ -69,7 +71,7 @@ public class EinteilungSQL
 		}
 	}
 
-	public String ReadFrom_Einteilung() throws NoAccessToDataBaseException
+	public List<Einteilung> ReadFrom_Einteilung() throws NoAccessToDataBaseException, SQLException
 	{
 		Statement statement;
 		try
@@ -78,20 +80,22 @@ public class EinteilungSQL
 			{
 				statement = Connection.createStatement();
 				ResultSet result = statement.executeQuery(GETALLEINTEILUNGEN);
-				String out = "";
+				List<Einteilung> einteilungen = new ArrayList<Einteilung>();
 				while (result.next())
 				{
-					out += " TeamNr = " + result.getString("TeamNr");
-					out += " Slot = " + result.getString("Slot");
+					String teamNr = result.getString("TeamNr");
+					String slot = result.getString("Slot");
+					Einteilung einteilung = new Einteilung(teamNr, slot);
+					einteilungen.add(einteilung);
 				}
-				return out;
+				return einteilungen;
 			} else
 				throw new NoAccessToDataBaseException();
 		} catch (SQLException s)
 		{
 			// TODO Auto-generated catch block
 			System.out.println(s.getMessage());
-			return s.getMessage();
+			throw s;
 		}
 	}
 

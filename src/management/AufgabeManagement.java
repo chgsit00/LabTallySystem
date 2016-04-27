@@ -2,6 +2,7 @@ package management;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 import database.DataBaseConnector;
 import database.DataBasePropertyInitializer;
@@ -108,7 +109,8 @@ public class AufgabeManagement
 		}
 	}
 
-	public String ReadAllAufgaben()
+	public List<Aufgabe> ReadAllAufgaben()
+			throws DataBasePathNotFoundException, NoAccessToDataBaseException, SQLException
 	{
 		try
 		{
@@ -120,10 +122,13 @@ public class AufgabeManagement
 			return operation.ReadFrom_Aufgabe();
 		} catch (DataBasePathNotFoundException ex)
 		{
-			return ex.getMessage();
+			throw ex;
 		} catch (NoAccessToDataBaseException ac)
 		{
-			return ac.getMessage();
+			throw ac;
+		} catch (SQLException s)
+		{
+			throw s;
 		} finally
 		{
 			try

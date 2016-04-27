@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import exceptions.NoAccessToDataBaseException;
 import objects.Aufgabe;
@@ -133,7 +135,7 @@ public class AufgabeSQL
 		}
 	}
 
-	public String ReadFrom_Aufgabe() throws NoAccessToDataBaseException
+	public List<Aufgabe> ReadFrom_Aufgabe() throws NoAccessToDataBaseException, SQLException
 	{
 		Statement statement;
 		try
@@ -142,21 +144,23 @@ public class AufgabeSQL
 			{
 				statement = Connection.createStatement();
 				ResultSet result = statement.executeQuery(GETALLAUFGABEN);
-				String out = "";
+				List<Aufgabe> aufgaben = new ArrayList<Aufgabe>();
 				while (result.next())
 				{
-					out += " AufgabeNr = " + result.getString("AufgabeNr");
-					out += " LaborblattNr = " + result.getString("LaborblattNr");
-					out += " AufgabeText = " + result.getString("AufgabeText");
+					String aufgabeNr = result.getString("AufgabeNr");
+					String laborblattNr = result.getString("LaborblattNr");
+					String aufgabeText = result.getString("AufgabeText");
+					Aufgabe aufgabe = new Aufgabe(aufgabeNr, laborblattNr, aufgabeText);
+					aufgaben.add(aufgabe);
 				}
-				return out;
+				return aufgaben;
 			} else
 				throw new NoAccessToDataBaseException();
 		} catch (SQLException s)
 		{
 			// TODO Auto-generated catch block
 			System.out.println(s.getMessage());
-			return s.getMessage();
+			throw s;
 		}
 	}
 

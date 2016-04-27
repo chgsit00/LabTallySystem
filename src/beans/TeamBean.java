@@ -14,7 +14,13 @@ public class TeamBean
 	{
 		TeamManagement management = new TeamManagement();
 		management.DeleteTeam("1");
+		management.DeleteTeam("2");
+		management.DeleteTeam("3");
+		management.DeleteTeam("4");
 		management.SaveTeam("1");
+		management.SaveTeam("2");
+		management.SaveTeam("3");
+		management.SaveTeam("4");
 		management.SaveTeam("1", "passwort");
 		String out = "";
 		List<Team> teams;

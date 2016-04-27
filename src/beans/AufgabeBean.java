@@ -14,8 +14,18 @@ public class AufgabeBean
 	{
 		AufgabeManagement management = new AufgabeManagement();
 		management.DeleteAufgabe("1");
-		management.SaveAufgabe("1", "Hans Peter ist da !");
-		management.SaveAufgabe("1", "2", "Sei lieb zu Philip");
+		management.DeleteAufgabe("2");
+		management.DeleteAufgabe("3");
+		management.DeleteAufgabe("4");
+		management.DeleteAufgabe("5");
+		management.DeleteAufgabe("6");
+		management.SaveAufgabe("1", "Finde die IP von Troll");
+		management.SaveAufgabe("2", "2", "Bobs Betriebssystem ?");
+		management.SaveAufgabe("3", "2", "offene TCP Ports ?");
+		management.SaveAufgabe("4", "2", "Services ?");
+		management.SaveAufgabe("5", "2", "offene UDP Ports ?");
+		management.SaveAufgabe("6", "2", "Ist Bob erreichbar ?");
+		management.SaveAufgabe("1", "2", "Finde die IP von Bob");
 		List<Aufgabe> aufgaben;
 		try
 		{

@@ -37,6 +37,9 @@ public class RechnerBean
 		{
 			out += "\n Rechner: ";
 			out += "\n RechnerNr: " + Rechner.RechnerNr;
+			out += "\n IP Adresse: " + Rechner.IPAdresse;
+			out += "\n Account: " + Rechner.Account;
+			out += "\n Passwort: " + Rechner.Passwort;
 		}
 		return out;
 	}

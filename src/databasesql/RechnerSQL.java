@@ -81,8 +81,8 @@ public class RechnerSQL
 			{
 				Statement statement = Connection.createStatement();
 				statement.setQueryTimeout(30);
-				statement.executeUpdate("UPDATE Rechner SET RechnerNr = '" + rechnerNr + "' , IPAdresse = " + ipadresse
-						+ ", Account = '" + account + "',  Passwort = '" + passwort + "' WHERE RechnerNr = '"
+				statement.executeUpdate("UPDATE Rechner SET RechnerNr = '" + rechnerNr + "' , IPAdresse = '" + ipadresse
+						+ "', Account = '" + account + "',  Passwort = '" + passwort + "' WHERE RechnerNr = '"
 						+ rechnerNr + "';");
 			} else
 				throw new NoAccessToDataBaseException();

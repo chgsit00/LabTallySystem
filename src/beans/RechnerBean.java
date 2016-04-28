@@ -14,9 +14,10 @@ public class RechnerBean
 	{
 		RechnerManagement management = new RechnerManagement();
 		management.DeleteRechner("1");
-		management.InsertRechner("1");
+		management.SaveRechner("1", "192.168.0.1", "Bob", "Opfer");
 		management.DeleteRechner("2");
-		management.InsertRechner("2");
+		management.SaveRechner("2", "192.168.0.2", "Kali", "Megahacker");
+		management.SaveRechner("1", "192.168.0.1", "Bob", "Looser");
 		String out = "";
 		List<Rechner> rechner;
 		try

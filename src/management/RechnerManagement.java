@@ -15,7 +15,7 @@ public class RechnerManagement
 {
 	private Connection Connection = null;
 
-	public String InsertRechner(String rechnerNr)
+	public String SaveRechner(String rechnerNr, String ipadresse, String account, String passwort)
 	{
 
 		try
@@ -29,8 +29,12 @@ public class RechnerManagement
 			String message = "Failure - Save-Operation did not work correctly";
 			if (rechner.RechnerNr == null)
 			{
-				operation.InsertInto_Rechner(rechnerNr);
+				operation.InsertInto_Rechner(rechnerNr, ipadresse, account, passwort);
 				message = "Insert - Success";
+			} else
+			{
+				operation.Update_Rechner(rechnerNr, ipadresse, account, passwort);
+				message = "Update - Success";
 			}
 			System.out.println(message);
 			return message;

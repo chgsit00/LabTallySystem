@@ -34,7 +34,10 @@ public class RechnerSQL
 				while (result.next())
 				{
 					String RechnerNr = result.getString("RechnerNr");
-					rechner.setValues(RechnerNr);
+					String ipadresse = result.getString("IPAdresse");
+					String account = result.getString("Account");
+					String passwort = result.getString("Passwort");
+					rechner.setValues(RechnerNr, ipadresse, account, passwort);
 				}
 				return rechner;
 			} else
@@ -48,7 +51,8 @@ public class RechnerSQL
 		}
 	}
 
-	public void InsertInto_Rechner(String rechnerNr) throws NoAccessToDataBaseException
+	public void InsertInto_Rechner(String rechnerNr, String ipadresse, String account, String passwort)
+			throws NoAccessToDataBaseException
 	{
 		try
 		{
@@ -56,7 +60,30 @@ public class RechnerSQL
 			{
 				Statement statement = Connection.createStatement();
 				statement.setQueryTimeout(30);
-				statement.executeUpdate("INSERT INTO Rechner (RechnerNr) VALUES('" + rechnerNr + "');");
+				statement.executeUpdate("INSERT INTO Rechner (RechnerNr, IPAdresse, Account, Passwort) VALUES('"
+						+ rechnerNr + "', '" + ipadresse + "', '" + account + "', '" + passwort + "');");
+			} else
+				throw new NoAccessToDataBaseException();
+
+		} catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public void Update_Rechner(String rechnerNr, String ipadresse, String account, String passwort)
+			throws NoAccessToDataBaseException
+	{
+		try
+		{
+			if (Connection != null)
+			{
+				Statement statement = Connection.createStatement();
+				statement.setQueryTimeout(30);
+				statement.executeUpdate("UPDATE Rechner SET RechnerNr = '" + rechnerNr + "' , IPAdresse = " + ipadresse
+						+ ", Account = '" + account + "',  Passwort = '" + passwort + "' WHERE RechnerNr = '"
+						+ rechnerNr + "';");
 			} else
 				throw new NoAccessToDataBaseException();
 
@@ -78,7 +105,10 @@ public class RechnerSQL
 			while (result.next())
 			{
 				String rechnerNr = result.getString("RechnerNr");
-				Rechner Rechner = new Rechner(rechnerNr);
+				String ipadresse = result.getString("IPAdresse");
+				String account = result.getString("Account");
+				String passwort = result.getString("Passwort");
+				Rechner Rechner = new Rechner(rechnerNr, ipadresse, account, passwort);
 				rechner.add(Rechner);
 			}
 			return rechner;

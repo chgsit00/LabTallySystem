@@ -6,6 +6,7 @@ DROP TABLE Aufgabe;
 DROP TABLE Rechner;
 DROP TABLE Team;
 DROP TABLE Laborblatt;
+DROP VIEW GlobaleView;
 
 CREATE TABLE Laborblatt (
 	LaborblattNr VARCHAR PRIMARY KEY  NOT NULL 
@@ -17,7 +18,10 @@ CREATE TABLE Team (
 );
 
 CREATE TABLE Rechner (
-	RechnerNr  PRIMARY KEY  NOT NULL 
+	RechnerNr  PRIMARY KEY  NOT NULL ,
+	IPAdresse VARCHAR ,
+	Account VARCHAR,
+	Passwort VARCHAR
 );
 
 CREATE TABLE Aufgabe (
@@ -57,3 +61,9 @@ CREATE TABLE Einteilung (
 	primary key (TeamNr, Slot)
 );
 
+CREATE VIEW GlobaleView
+AS SELECT Team.TeamNr, Ergebnis.Bestanden, Ergebnis.Zeitstempel, Ergebnis.AufgabeNr, Aufgabe.AufgabeText
+FROM Team
+INNER JOIN Ergebnis ON Ergebnis.TeamNr = Team.TeamNr
+INNER JOIN Aufgabe ON Aufgabe.AufgabeNr = Ergebnis.AufgabeNr
+;

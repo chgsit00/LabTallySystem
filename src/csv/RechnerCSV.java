@@ -38,7 +38,8 @@ public class RechnerCSV
 				{
 					String[] values = line.split(";"); // your seperator
 
-					statement.executeUpdate("INSERT INTO Rechner VALUES('" + values[0] + "');");
+					statement.executeUpdate("INSERT INTO Rechner VALUES('" + values[0] + "', '" + values[1] + "', '"
+							+ values[2] + "', '" + values[3] + "');");
 				}
 				br.close();
 			} else

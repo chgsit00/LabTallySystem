@@ -1,2 +1,3 @@
-RechnerNr
-1
+RechnerNr;IPAdresse;Account;Passwort
+1;192.168.100.100;Bob;meinpasswortistsicher
+2;192.168.100.101;Kali;ichhackedich

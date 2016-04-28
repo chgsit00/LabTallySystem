@@ -7,6 +7,8 @@ DROP TABLE Rechner;
 DROP TABLE Team;
 DROP TABLE Laborblatt;
 DROP VIEW GlobaleView;
+DROP VIEW LaborblattView;
+DROP VIEW LaborgruppenView;
 
 CREATE TABLE Laborblatt (
 	LaborblattNr VARCHAR PRIMARY KEY  NOT NULL 
@@ -66,4 +68,21 @@ AS SELECT Team.TeamNr, Ergebnis.Bestanden, Ergebnis.Zeitstempel, Ergebnis.Aufgab
 FROM Team
 INNER JOIN Ergebnis ON Ergebnis.TeamNr = Team.TeamNr
 INNER JOIN Aufgabe ON Aufgabe.AufgabeNr = Ergebnis.AufgabeNr
+;
+
+CREATE VIEW LaborblattView
+AS SELECT Team.TeamNr, Ergebnis.Bestanden, Ergebnis.Zeitstempel, Ergebnis.AufgabeNr, Aufgabe.AufgabeText, Aufgabe.LaborblattNr
+FROM Team
+INNER JOIN Ergebnis ON Ergebnis.TeamNr = Team.TeamNr
+INNER JOIN Aufgabe ON Aufgabe.AufgabeNr = Ergebnis.AufgabeNr
+;
+
+CREATE VIEW LaborgruppenView
+AS SELECT Team.TeamNr, Ergebnis.Bestanden, Ergebnis.Zeitstempel, Ergebnis.AufgabeNr, Aufgabe.AufgabeText, Laborslots.Slot
+FROM Laborslots
+INNER JOIN Einteilung ON Einteilung.Slot = Laborslots.Slot
+INNER JOIN Team ON Team.TeamNr = Einteilung.TeamNr
+INNER JOIN Ergebnis ON Ergebnis.TeamNr = Team.TeamNr
+INNER JOIN Aufgabe ON Aufgabe.AufgabeNr = Ergebnis.AufgabeNr
+WHERE Laborslots.LaborblattNr = Aufgabe.LaborblattNr
 ;

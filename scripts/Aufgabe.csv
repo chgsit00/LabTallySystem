@@ -1,2 +1,4 @@
 AufgabeNr;LaborblattNr;AufgabeText
-1;2;test text
+1;1;test text 1.1
+2;2;test text 1.2
+3;2;test text 2.3

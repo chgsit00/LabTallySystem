@@ -51,8 +51,13 @@ public class Startup
 		System.out.println("Inhalt von Ergebnis löschen und neu von der CSV-Datei einlesen? y/n");
 		if (ImportAcceptedSwitch(br))
 		{
-			CSVManagement csvManagement = new CSVManagement();
-			csvManagement.DeleteAndImportErgebnisFromCSV();
+			System.out.println(
+					"WARNUNG! Durch löschen der Ergebnistabelle werden alle Ergebnisse, welche die Studenten bereits eingegeben haben gelöscht. Sind sie sich wirklich sicher? y/n");
+			if (ImportAcceptedSwitch(br))
+			{
+				CSVManagement csvManagement = new CSVManagement();
+				csvManagement.DeleteAndImportErgebnisFromCSV();
+			}
 		}
 
 		System.out.println("Inhalt von Loesung löschen und neu von der CSV-Datei einlesen? y/n");
@@ -69,6 +74,7 @@ public class Startup
 			csvManagement.DeleteAndImportEinteilungFromCSV();
 		}
 
+		System.out.println("Fertig!");
 		br.close();
 	}
 

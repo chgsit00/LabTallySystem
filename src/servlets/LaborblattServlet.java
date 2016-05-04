@@ -64,7 +64,7 @@ public class LaborblattServlet extends HttpServlet
 					out.println("<html>");
 					out.println("<head>");
 					out.println("<meta charset=\"utf-8\">");
-					out.println("<title>Team Overview</title>");
+					out.println("<title>Laborblatt</title>");
 					out.println(
 							"<link rel=\"stylesheet\"href=\"//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css\">");
 					out.println("<script src=\"//code.jquery.com/jquery-1.10.2.js\"></script>");

@@ -13,9 +13,9 @@ public class LoesungBean
 	public String doAction()
 	{
 		LoesungManagement management = new LoesungManagement();
-		management.DeleteLoesung("1", "1");
-		management.SaveLoesung("1", "1", "PI");
-		management.SaveLoesung("1", "1", "PI/2");
+		management.DeleteLoesung("1", "2");
+		management.SaveLoesung("1", "2", "102.122.2.56");
+		management.SaveLoesung("1", "2", "192.168.0.1");
 		List<Loesung> loesungen;
 		try
 		{

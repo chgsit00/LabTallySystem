@@ -15,6 +15,17 @@ public class TeamManagement
 {
 	private Connection Connection = null;
 
+	public Team GetTeam_by_TeamNr(String teamNr) throws DataBasePathNotFoundException, NoAccessToDataBaseException
+	{
+		DataBasePropertyInitializer initializer = new DataBasePropertyInitializer();
+		String databasePath = initializer.GetDataBasePath();
+		DataBaseConnector connector = new DataBaseConnector(databasePath);
+		Connection = connector.ConnectToDataBase();
+		TeamSQL operation = new TeamSQL(Connection);
+		Team team = operation.GetTeam_by_TeamNr(teamNr);
+		return team;
+	}
+
 	public String SaveTeam(String teamNr, String passwort)
 	{
 

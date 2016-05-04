@@ -104,7 +104,7 @@ public class servlet1 extends HttpServlet
 		} else
 		{
 			out.print("You must be signed in to see this page");
-			out.println("<a href='/LabTallySystem/'>zur&uuml;ck</a>");
+			out.println("<a href='/LabTallySystem/login.html'>zur&uuml;ck</a>");
 		}
 		out.close();
 	}

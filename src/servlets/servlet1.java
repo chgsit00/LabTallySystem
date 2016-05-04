@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import exceptions.DataBasePathNotFoundException;
 import exceptions.NoAccessToDataBaseException;
-import logic.TeamOverviewLogic;
-import objects.TeamOverview;
+import logic.GlobaleViewLogic;
+import objects.GlobaleViewBestandeneAufgaben;
 
 /**
  * Servlet implementation class servlet1
@@ -41,11 +41,11 @@ public class servlet1 extends HttpServlet
 	{
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
-		TeamOverviewLogic logic = new TeamOverviewLogic();
-		List<TeamOverview> list;
+		GlobaleViewLogic logic = new GlobaleViewLogic();
+		List<GlobaleViewBestandeneAufgaben> list;
 		try
 		{
-			list = logic.GetTeamOverview();
+			list = logic.GetGlobaleViewSorted();
 			out.println("<html>");
 			out.println("<head>");
 			out.println("<meta charset=\"utf-8\">");
@@ -61,7 +61,7 @@ public class servlet1 extends HttpServlet
 			out.println("<body>");
 			out.println("<div id=\"accordion\">");
 			int iterator = 1;
-			for (TeamOverview team : list)
+			for (GlobaleViewBestandeneAufgaben team : list)
 			{
 				out.println("<h3> Platz: " + iterator + "/" + list.size() + "Team: " + team.TeamNr + "Aufgaben gelöst: "
 						+ team.BestandeneAufgabeCount + "/" + team.Aufgaben.size() + "</h3>");

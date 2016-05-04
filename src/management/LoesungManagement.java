@@ -19,6 +19,18 @@ public class LoesungManagement
 {
 	private Connection Connection = null;
 
+	public Loesung GetLoesung_by_RechnerNr_and_AufgabeNr(String aufgabeNr, String rechnerNr)
+			throws DataBasePathNotFoundException, NoAccessToDataBaseException
+	{
+		DataBasePropertyInitializer initializer = new DataBasePropertyInitializer();
+		String databasePath = initializer.GetDataBasePath();
+		DataBaseConnector connector = new DataBaseConnector(databasePath);
+		Connection = connector.ConnectToDataBase();
+		LoesungSQL operation = new LoesungSQL(Connection);
+		Loesung loesung = operation.GetLoesung_by_AufgabeNr_and_RechnerNr(aufgabeNr, rechnerNr);
+		return loesung;
+	}
+
 	public String SaveLoesung(String aufgabeNr, String rechnerNr, String loesung)
 	{
 

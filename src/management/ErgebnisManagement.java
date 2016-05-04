@@ -19,6 +19,18 @@ public class ErgebnisManagement
 {
 	private Connection Connection = null;
 
+	public Ergebnis GetErgebnis_by_AufgabeNr_and_TeamNr(String aufgabeNr, String teamNr)
+			throws DataBasePathNotFoundException, NoAccessToDataBaseException
+	{
+		DataBasePropertyInitializer initializer = new DataBasePropertyInitializer();
+		String databasePath = initializer.GetDataBasePath();
+		DataBaseConnector connector = new DataBaseConnector(databasePath);
+		Connection = connector.ConnectToDataBase();
+		ErgebnisSQL operation = new ErgebnisSQL(Connection);
+		Ergebnis ergebnis = operation.GetErgebnis_by_AufgabeNr_and_TeamNr(aufgabeNr, teamNr);
+		return ergebnis;
+	}
+
 	public String SaveErgebnis(String teamNr, String aufgabeNr, String rechnerNr, String eingabe, boolean bestanden,
 			String zeitstempel)
 	{

@@ -15,6 +15,18 @@ public class RechnerManagement
 {
 	private Connection Connection = null;
 
+	public Rechner GetRechner_by_RechnerNr(String rechnerNr)
+			throws DataBasePathNotFoundException, NoAccessToDataBaseException
+	{
+		DataBasePropertyInitializer initializer = new DataBasePropertyInitializer();
+		String databasePath = initializer.GetDataBasePath();
+		DataBaseConnector connector = new DataBaseConnector(databasePath);
+		Connection = connector.ConnectToDataBase();
+		RechnerSQL operation = new RechnerSQL(Connection);
+		Rechner rechner = operation.GetRechner_by_RechnerNr(rechnerNr);
+		return rechner;
+	}
+
 	public String SaveRechner(String rechnerNr, String ipadresse, String account, String passwort)
 	{
 

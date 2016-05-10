@@ -20,12 +20,12 @@ public class AufgabeBean
 		management.DeleteAufgabe("5");
 		management.DeleteAufgabe("6");
 		management.SaveAufgabe("1", "Finde die IP von Troll");
-		management.SaveAufgabe("2", "2", "Bobs Betriebssystem ?");
-		management.SaveAufgabe("3", "2", "offene TCP Ports ?");
-		management.SaveAufgabe("4", "2", "Services ?");
-		management.SaveAufgabe("5", "2", "offene UDP Ports ?");
-		management.SaveAufgabe("6", "2", "Ist Bob erreichbar ?");
-		management.SaveAufgabe("1", "2", "Finde die IP von Bob");
+		management.SaveAufgabe("2", "2", "Bobs Betriebssystem ?", "ManualInput");
+		management.SaveAufgabe("3", "2", "offene TCP Ports ?", "ManualInput");
+		management.SaveAufgabe("4", "2", "Services ?", "ManualInput");
+		management.SaveAufgabe("5", "2", "offene UDP Ports ?", "ManualInput");
+		management.SaveAufgabe("6", "2", "Ist Bob erreichbar ?", "ManualInput");
+		management.SaveAufgabe("1", "2", "Finde die IP von Bob", "ManualInput");
 		List<Aufgabe> aufgaben;
 		try
 		{

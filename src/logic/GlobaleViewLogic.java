@@ -8,7 +8,9 @@ import java.util.List;
 
 import exceptions.DataBasePathNotFoundException;
 import exceptions.NoAccessToDataBaseException;
+import management.AufgabeManagement;
 import management.GlobaleViewManagement;
+import objects.Aufgabe;
 import objects.GlobaleView;
 import objects.GlobaleViewBestandeneAufgaben;
 
@@ -21,12 +23,14 @@ public class GlobaleViewLogic
 		List<GlobaleViewBestandeneAufgaben> globaleViewBestandeneAufgabenList = new ArrayList<GlobaleViewBestandeneAufgaben>();
 		GlobaleViewManagement globaleViewManagement = new GlobaleViewManagement();
 		List<GlobaleView> globaleViews = globaleViewManagement.ReadAllGlobaleViews();
+		AufgabeManagement aufgabeManagement = new AufgabeManagement();
+		List<Aufgabe> aufgaben = aufgabeManagement.ReadAllAufgaben();
 
 		List<String> aufgabentexte = new ArrayList<String>();
 
-		for (GlobaleView globaleView : globaleViews)
+		for (Aufgabe aufgabe : aufgaben)
 		{
-			String aufgabentext = "Aufgabe: " + globaleView.AufgabeNr + " Text:" + globaleView.AufgabeText;
+			String aufgabentext = "Aufgabe: " + aufgabe.AufgabeNr + " Text:" + aufgabe.AufgabeText;
 
 			if (!aufgabentexte.contains(aufgabentext))
 			{

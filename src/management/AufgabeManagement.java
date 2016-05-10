@@ -9,6 +9,7 @@ import database.DataBasePropertyInitializer;
 import databasesql.AufgabeSQL;
 import databasesql.LaborblattSQL;
 import exceptions.DataBasePathNotFoundException;
+import exceptions.EingabeArtInputWrongException;
 import exceptions.NoAccessToDataBaseException;
 import objects.Aufgabe;
 import objects.Laborblatt;
@@ -17,7 +18,7 @@ public class AufgabeManagement
 {
 	private Connection Connection = null;
 
-	public String SaveAufgabe(String aufgabeNr, String laborblattNr, String aufgabeText)
+	public String SaveAufgabe(String aufgabeNr, String laborblattNr, String aufgabeText, String eingabeArt)
 	{
 
 		try
@@ -32,20 +33,29 @@ public class AufgabeManagement
 			Laborblatt laborblatt = operation2.GetLaborblatt_by_LaborblattNr(laborblattNr);
 			if (laborblatt.LaborblattNr != null)
 			{
-				Aufgabe aufgabe = operation.GetAufgabe_by_AufgabeNr(aufgabeNr);
-				if (aufgabe.AufgabeNr == null)
+				if (eingabeArt.equals("Automatic") || eingabeArt.equals("ManualInput") || eingabeArt.equals("Upload"))
 				{
-					operation.InsertInto_Aufgabe(aufgabeNr, laborblattNr, aufgabeText);
-					message = "Insert - Success";
+					Aufgabe aufgabe = operation.GetAufgabe_by_AufgabeNr(aufgabeNr);
+					if (aufgabe.AufgabeNr == null)
+					{
+						operation.InsertInto_Aufgabe(aufgabeNr, laborblattNr, aufgabeText, eingabeArt);
+						message = "Insert - Success";
+					} else
+					{
+						operation.Update_Aufgabe(aufgabeNr, laborblattNr, aufgabeText, eingabeArt);
+						message = "Update - Success";
+					}
 				} else
 				{
-					operation.Update_Aufgabe(aufgabeNr, laborblattNr, aufgabeText);
-					message = "Update - Success";
+					throw new EingabeArtInputWrongException();
 				}
 			} else
 				message = "Save not possible - Laborblatt with LaborblattNr = " + laborblattNr + " doesn't exist";
 			System.out.println(message);
 			return message;
+		} catch (EingabeArtInputWrongException ex)
+		{
+			return ex.getMessage();
 		} catch (DataBasePathNotFoundException ex)
 		{
 			return ex.getMessage();

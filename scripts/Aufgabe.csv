@@ -1,4 +1,7 @@
-AufgabeNr;LaborblattNr;AufgabeText
-1;1;test text 1.1
-2;2;test text 1.2
-3;2;test text 2.3
+AufgabeNr;LaborblattNr;AufgabeText;EingabeArt
+1;1;test text 1.1;ManualInput
+2;2;test text 1.2;ManualInput
+3;2;test text 2.3;ManualInput
+4;2;test text 4;ManualInput
+5;2;test text 5;ManualInput
+6;2;test text 6;ManualInput

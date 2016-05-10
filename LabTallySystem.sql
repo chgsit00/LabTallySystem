@@ -29,7 +29,8 @@ CREATE TABLE Rechner (
 CREATE TABLE Aufgabe (
 	AufgabeNr VARCHAR PRIMARY KEY  NOT NULL , 
 	LaborblattNr VARCHAR REFERENCES Laborblatt(LaborblattNr),
-	AufgabeText VARCHAR
+	AufgabeText VARCHAR,
+	EingabeArt VARCHAR
 );
 
 create table Laborslots (

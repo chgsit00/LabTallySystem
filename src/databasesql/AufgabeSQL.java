@@ -38,7 +38,8 @@ public class AufgabeSQL
 					String AufgabeNr = result.getString("AufgabeNr");
 					String LaborblattNr = result.getString("LaborblattNr");
 					String AufgabeText = result.getString("AufgabeText");
-					aufgabe.setValues(AufgabeNr, LaborblattNr, AufgabeText);
+					String EingabeArt = result.getString("EingabeArt");
+					aufgabe.setValues(AufgabeNr, LaborblattNr, AufgabeText, EingabeArt);
 				}
 				return aufgabe;
 			} else
@@ -52,7 +53,7 @@ public class AufgabeSQL
 		}
 	}
 
-	public void InsertInto_Aufgabe(String aufgabeNr, String laborblattNr, String aufgabeText)
+	public void InsertInto_Aufgabe(String aufgabeNr, String laborblattNr, String aufgabeText, String eingabeArt)
 			throws NoAccessToDataBaseException
 	{
 		try
@@ -61,8 +62,9 @@ public class AufgabeSQL
 			{
 				Statement statement = Connection.createStatement();
 				statement.setQueryTimeout(30);
-				statement.executeUpdate("INSERT INTO AUFGABE (AufgabeNr, LaborblattNr, AufgabeText) VALUES('"
-						+ aufgabeNr + "', '" + laborblattNr + "', '" + aufgabeText + "');");
+				statement.executeUpdate(
+						"INSERT INTO AUFGABE (AufgabeNr, LaborblattNr, AufgabeText, EingabeArt) VALUES('" + aufgabeNr
+								+ "', '" + laborblattNr + "', '" + aufgabeText + "', '" + eingabeArt + "');");
 			} else
 				throw new NoAccessToDataBaseException();
 
@@ -93,7 +95,7 @@ public class AufgabeSQL
 		}
 	}
 
-	public void Update_Aufgabe(String aufgabeNr, String laborblattNr, String aufgabeText)
+	public void Update_Aufgabe(String aufgabeNr, String laborblattNr, String aufgabeText, String eingabeArt)
 			throws NoAccessToDataBaseException
 	{
 		try
@@ -102,9 +104,9 @@ public class AufgabeSQL
 			{
 				Statement statement = Connection.createStatement();
 				statement.setQueryTimeout(30);
-				statement.executeUpdate(
-						"UPDATE AUFGABE SET AufgabeNr = '" + aufgabeNr + "',  LaborBlattNr = '" + laborblattNr
-								+ "', AufgabeText = '" + aufgabeText + "' WHERE AufgabeNr = '" + aufgabeNr + "';");
+				statement.executeUpdate("UPDATE AUFGABE SET AufgabeNr = '" + aufgabeNr + "',  LaborBlattNr = '"
+						+ laborblattNr + "', AufgabeText = '" + aufgabeText + "', EingabeArt = '" + eingabeArt
+						+ "' WHERE AufgabeNr = '" + aufgabeNr + "';");
 			} else
 				throw new NoAccessToDataBaseException();
 
@@ -150,7 +152,8 @@ public class AufgabeSQL
 					String aufgabeNr = result.getString("AufgabeNr");
 					String laborblattNr = result.getString("LaborblattNr");
 					String aufgabeText = result.getString("AufgabeText");
-					Aufgabe aufgabe = new Aufgabe(aufgabeNr, laborblattNr, aufgabeText);
+					String eingabeArt = result.getString("EingabeArt");
+					Aufgabe aufgabe = new Aufgabe(aufgabeNr, laborblattNr, aufgabeText, eingabeArt);
 					aufgaben.add(aufgabe);
 				}
 				return aufgaben;

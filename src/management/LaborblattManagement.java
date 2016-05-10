@@ -15,6 +15,17 @@ public class LaborblattManagement
 {
 	private Connection Connection = null;
 
+	public Laborblatt GetLaborblatt_by_LaborblattNr(String laborBlattNr)
+			throws DataBasePathNotFoundException, NoAccessToDataBaseException
+	{
+		DataBasePropertyInitializer initializer = new DataBasePropertyInitializer();
+		String databasePath = initializer.GetDataBasePath();
+		DataBaseConnector connector = new DataBaseConnector(databasePath);
+		Connection = connector.ConnectToDataBase();
+		LaborblattSQL operation = new LaborblattSQL(Connection);
+		return operation.GetLaborblatt_by_LaborblattNr(laborBlattNr);
+	}
+
 	public String InsertLaborBlatt(String laborBlattNr)
 	{
 

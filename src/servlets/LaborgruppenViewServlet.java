@@ -124,12 +124,16 @@ public class LaborgruppenViewServlet extends HttpServlet
 					}
 				} else
 				{
-					out.print("You must be signed in to see this page");
-					out.println("<a href='/LabTallySystem/login.html'>zur&uuml;ck</a>");
+					out.print("This Laborslot does not exist");
+					request.getRequestDispatcher("LaborSlotView.html").include(request, response);
 				}
-				out.close();
 			}
+		} else
+		{
+			out.print("You must be signed in to see this page");
+			out.println("<a href='/LabTallySystem/login.html'>zur&uuml;ck</a>");
 		}
+		out.close();
 	}
 
 	/**

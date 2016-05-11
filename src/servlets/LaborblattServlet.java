@@ -71,7 +71,7 @@ public class LaborblattServlet extends HttpServlet
 					for (LaborblattView laborblatt : laborblattViews)
 					{
 						out.println("<div class = \"LaborblattNav Blatt" + iterator + "\">");
-						out.println("<p>Laborblatt " + iterator + "</p>");
+						out.println("<p>Laborblatt " + laborblatt.LaborblattNr + "</p>");
 						out.println("</div>");
 						iterator++;
 					}

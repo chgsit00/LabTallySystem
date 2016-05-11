@@ -24,3 +24,8 @@
 	border: 1px;
 	border-style:solid;
 }
+
+.userimage {
+	float: right;
+	margin-right: 500px;
+}

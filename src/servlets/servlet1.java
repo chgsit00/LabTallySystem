@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import exceptions.DataBasePathNotFoundException;
 import exceptions.NoAccessToDataBaseException;
 import logic.TeamOverviewLogic;
+import objects.AufgabenDisplay;
 import objects.TeamOverview;
 
 /**
@@ -64,6 +65,7 @@ public class servlet1 extends HttpServlet
 					out.println("<head>");
 					out.println("<meta charset=\"utf-8\">");
 					out.println("<title>Team Overview</title>");
+					out.println("<link rel=\"stylesheet\" href=\"/LabTallySystem/LabTallySystemStyle.css\" />");
 					out.println(
 							"<link rel=\"stylesheet\"href=\"//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css\">");
 					out.println("<script src=\"//code.jquery.com/jquery-1.10.2.js\"></script>");
@@ -81,9 +83,20 @@ public class servlet1 extends HttpServlet
 								+ "Aufgaben gelöst: " + team.BestandeneAufgabeCount + "/" + team.Aufgaben.size()
 								+ "</h3>");
 						out.println("<div>");
-						for (String aufgabe : team.Aufgaben)
+						for (AufgabenDisplay aufgabe : team.Aufgaben)
 						{
-							out.println("<p>" + aufgabe + "</p>");
+							if (aufgabe.Bestanden)
+							{
+								out.println("<p>" + aufgabe.AufgabeNr + " " + aufgabe.AufgabeText
+										+ "<img class=\"userimage\" src='" + request.getContextPath()
+										+ "/images/green-img.jpg' width='16dpi' alt='image' />" + "</p>");
+							} else
+							{
+								out.println("<p>" + aufgabe.AufgabeNr + " " + aufgabe.AufgabeText
+										+ "<img class=\"userimage\" src='" + request.getContextPath()
+										+ "/images/red-img.jpg' width='16dpi' alt='image' />" + "</p>");
+							}
+
 						}
 						out.println("</div>");
 						iterator++;

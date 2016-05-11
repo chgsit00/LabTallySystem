@@ -6,9 +6,9 @@ public class TeamOverview
 {
 	public String TeamNr;
 	public String BestandeneAufgabeCount;
-	public List<String> Aufgaben;
+	public List<AufgabenDisplay> Aufgaben;
 
-	public TeamOverview(String teamNr, String bestandeneAufgabeCount, List<String> aufgaben)
+	public TeamOverview(String teamNr, String bestandeneAufgabeCount, List<AufgabenDisplay> aufgaben)
 	{
 		TeamNr = teamNr;
 		BestandeneAufgabeCount = bestandeneAufgabeCount;

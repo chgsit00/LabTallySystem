@@ -10,7 +10,7 @@
 }
 
 .LaborblattNav {
-	background-color: yellow;
+	background-color: black;
 	float: left;
 	display: inline;
 	margin: 10px;
@@ -19,7 +19,8 @@
 }
 
 .LaborblattSelected {
-	background-color: red;
+	background-color: #7bff7d;
+	color: black;
 	margin: 10px;
 	border: 1px;
 	border-style:solid;

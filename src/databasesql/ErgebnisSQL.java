@@ -130,7 +130,7 @@ public class ErgebnisSQL
 					String eingabe = result.getString("Eingabe");
 					boolean bestanden = result.getBoolean("Bestanden");
 					String zeitstempel = result.getString("Zeitstempel");
-					Ergebnis ergebnis = new Ergebnis(aufgabenNr, teamNr, rechnerNr, eingabe, bestanden, zeitstempel);
+					Ergebnis ergebnis = new Ergebnis(teamNr, aufgabenNr, rechnerNr, eingabe, bestanden, zeitstempel);
 					ergebnisse.add(ergebnis);
 				}
 				return ergebnisse;

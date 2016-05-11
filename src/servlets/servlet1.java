@@ -14,8 +14,8 @@ import javax.servlet.http.HttpSession;
 
 import exceptions.DataBasePathNotFoundException;
 import exceptions.NoAccessToDataBaseException;
-import logic.GlobaleViewLogic;
-import objects.GlobaleViewBestandeneAufgaben;
+import logic.TeamOverviewLogic;
+import objects.TeamOverview;
 
 /**
  * Servlet implementation class servlet1
@@ -55,11 +55,11 @@ public class servlet1 extends HttpServlet
 				out.println("<a href='/LabTallySystem/'>zur&uuml;ck</a>");
 			} else
 			{
-				GlobaleViewLogic logic = new GlobaleViewLogic();
-				List<GlobaleViewBestandeneAufgaben> list;
+				TeamOverviewLogic logic = new TeamOverviewLogic();
+				List<TeamOverview> list;
 				try
 				{
-					list = logic.GetGlobaleViewSorted();
+					list = logic.GetTeamOverview();
 					out.println("<html>");
 					out.println("<head>");
 					out.println("<meta charset=\"utf-8\">");
@@ -75,7 +75,7 @@ public class servlet1 extends HttpServlet
 					out.println("<body>");
 					out.println("<div id=\"accordion\">");
 					int iterator = 1;
-					for (GlobaleViewBestandeneAufgaben team : list)
+					for (TeamOverview team : list)
 					{
 						out.println("<h3> Platz: " + iterator + "/" + list.size() + "Team: " + team.TeamNr
 								+ "Aufgaben gelöst: " + team.BestandeneAufgabeCount + "/" + team.Aufgaben.size()

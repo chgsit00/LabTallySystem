@@ -17,6 +17,16 @@ public class LaborslotManagement
 {
 	private Connection Connection = null;
 
+	public Laborslot GetLaborslot_by_Slot(String slot) throws DataBasePathNotFoundException, NoAccessToDataBaseException
+	{
+		DataBasePropertyInitializer initializer = new DataBasePropertyInitializer();
+		String databasePath = initializer.GetDataBasePath();
+		DataBaseConnector connector = new DataBaseConnector(databasePath);
+		Connection = connector.ConnectToDataBase();
+		LaborslotSQL operation = new LaborslotSQL(Connection);
+		return operation.GetLaborslot_by_SlotNr(slot);
+	}
+
 	public String SaveLaborSlot(String nr, boolean belegt, String termin, String laborBlattNr)
 	{
 

@@ -33,7 +33,6 @@ public class LaborblattServlet extends HttpServlet
 	public LaborblattServlet()
 	{
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -42,7 +41,6 @@ public class LaborblattServlet extends HttpServlet
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		// TODO Auto-generated method stub
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		request.getRequestDispatcher("link.html").include(request, response);
@@ -54,8 +52,8 @@ public class LaborblattServlet extends HttpServlet
 			String teamNr = (String) session.getAttribute("teamNr");
 			if (rechnerNr == null || teamNr == null)
 			{
-				out.print("You must be signed in to see this page");
-				out.println("<a href='/LabTallySystem/'>zur&uuml;ck</a>");
+				out.print("<p>You must be signed in to see this page</p>");
+				out.println("<p><a href='/LabTallySystem/'>zur&uuml;ck</a></p>");
 			} else
 			{
 				LaborblattLogic laborblattlogic = new LaborblattLogic();
@@ -69,7 +67,10 @@ public class LaborblattServlet extends HttpServlet
 					out.println("<title>Laborblatt</title>");
 					out.println(
 							"<link rel=\"stylesheet\"href=\"//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css\">");
+
+					out.println("<link rel=\"stylesheet\" href=\"/LabTallySystem/LabTallySystemStyle.css\" />");
 					out.println("<script src=\"//code.jquery.com/jquery-1.10.2.js\"></script>");
+					out.println("<script src=\"/LabTallySystem/LabTallySystemScript.js\"></script>");
 					out.println("<script src=\"//code.jquery.com/ui/1.11.4/jquery-ui.js\"></script>");
 					out.println("<link rel=\"stylesheet\" href=\"/resources/demos/style.css\">");
 					out.println("<script>");
@@ -79,7 +80,17 @@ public class LaborblattServlet extends HttpServlet
 					int iterator = 1;
 					for (LaborblattView laborblatt : laborblattViews)
 					{
-						out.println("<div id=\"Laborblatt" + iterator + "\" class = \"Laborblatt\">");
+						out.println("<div class = \"LaborblattNav Blatt" + iterator + "\">");
+						out.println("<p>Laborblatt " + iterator + "</p>");
+						out.println("</div>");
+						iterator++;
+					}
+					iterator = 1;
+
+					for (LaborblattView laborblatt : laborblattViews)
+					{
+
+						out.println("<div id=\"Blatt" + iterator + "\" class = \"Laborblatt Blatt" + iterator + "\">");
 						out.println("<h3> Laborblatt: " + iterator + "</h3>");
 						for (Aufgabe aufgabe : laborblatt.Aufgaben)
 						{

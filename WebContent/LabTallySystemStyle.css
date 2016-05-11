@@ -1,0 +1,26 @@
+@CHARSET "ISO-8859-1";
+
+.Laborblatt{
+	clear: both;
+	padding: 10px;
+	float: bottom;
+	border-width:2px;
+	border-style:solid;
+	display: block;
+}
+
+.LaborblattNav {
+	background-color: yellow;
+	float: left;
+	display: inline;
+	margin: 10px;
+	border: 1px;
+	border-style:solid;
+}
+
+.LaborblattSelected {
+	background-color: red;
+	margin: 10px;
+	border: 1px;
+	border-style:solid;
+}

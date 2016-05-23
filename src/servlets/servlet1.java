@@ -53,7 +53,6 @@ public class servlet1 extends HttpServlet
 			if (rechnerNr == null || teamNr == null)
 			{
 				out.print("You must be signed in to see this page");
-				out.println("<a href='/LabTallySystem/'>zur&uuml;ck</a>");
 			} else
 			{
 				TeamOverviewLogic logic = new TeamOverviewLogic();
@@ -79,22 +78,24 @@ public class servlet1 extends HttpServlet
 					int iterator = 1;
 					for (TeamOverview team : list)
 					{
-						out.println("<h3> Platz: " + iterator + "/" + list.size() + "Team: " + team.TeamNr
-								+ "Aufgaben gelöst: " + team.BestandeneAufgabeCount + "/" + team.Aufgaben.size()
-								+ "</h3>");
-						out.println("<div>");
+						out.println("<h3> Platz: " + iterator + "/" + list.size() + " Team: " + team.TeamNr
+								+ "<span id='aufgabenGeloest'>" + "Aufgaben gelöst: " + team.BestandeneAufgabeCount
+								+ "/" + team.Aufgaben.size() + "</span>" + "</h3>");
+						out.println("<div id='container'>");
 						for (AufgabenDisplay aufgabe : team.Aufgaben)
 						{
 							if (aufgabe.Bestanden)
 							{
-								out.println("<p>" + aufgabe.AufgabeNr + " " + aufgabe.AufgabeText
-										+ "<img class=\"userimage\" src='" + request.getContextPath()
-										+ "/images/green-img.jpg' width='16dpi' alt='image' />" + "</p>");
+								out.println("<p>" + "<div id='links'>" + aufgabe.AufgabeNr + " " + aufgabe.AufgabeText
+										+ "</div>" + "<div id='rechts'>" + "<img class=\"userimage\" src='"
+										+ request.getContextPath()
+										+ "/images/green-img.jpg' width='16dpi' alt='image' />" + "</div>" + "</p>");
 							} else
 							{
-								out.println("<p>" + aufgabe.AufgabeNr + " " + aufgabe.AufgabeText
-										+ "<img class=\"userimage\" src='" + request.getContextPath()
-										+ "/images/red-img.jpg' width='16dpi' alt='image' />" + "</p>");
+								out.println("<p>" + "<div id='links'>" + aufgabe.AufgabeNr + " " + aufgabe.AufgabeText
+										+ "</div>" + "<div id='rechts'>" + "<img class=\"userimage\" src='"
+										+ request.getContextPath() + "/images/red-img.jpg' width='16dpi' alt='image' />"
+										+ "</div>" + "</p>");
 							}
 
 						}
@@ -103,7 +104,6 @@ public class servlet1 extends HttpServlet
 					}
 					out.println("</div>");
 					out.println("</body>");
-					out.println("<a href='/LabTallySystem/'>zur&uuml;ck</a>");
 					out.println("</html>");
 				} catch (DataBasePathNotFoundException e)
 				{
@@ -119,7 +119,6 @@ public class servlet1 extends HttpServlet
 		} else
 		{
 			out.print("You must be signed in to see this page");
-			out.println("<a href='/LabTallySystem/login.html'>zur&uuml;ck</a>");
 		}
 		out.close();
 	}

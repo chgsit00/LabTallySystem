@@ -16,6 +16,7 @@ import exceptions.DataBasePathNotFoundException;
 import exceptions.NoAccessToDataBaseException;
 import logic.LaborgruppenViewLogic;
 import management.LaborslotManagement;
+import objects.AufgabenDisplayLaborgruppen;
 import objects.LaborgruppenViewBestandeneAufgaben;
 import objects.Laborslot;
 
@@ -71,7 +72,6 @@ public class LaborgruppenViewServlet extends HttpServlet
 					if (rechnerNr == null || teamNr == null)
 					{
 						out.print("You must be signed in to see this page");
-						out.println("<a href='/LabTallySystem/'>zur&uuml;ck</a>");
 					} else
 					{
 						LaborgruppenViewLogic logic = new LaborgruppenViewLogic();
@@ -96,20 +96,33 @@ public class LaborgruppenViewServlet extends HttpServlet
 							int iterator = 1;
 							for (LaborgruppenViewBestandeneAufgaben team : list)
 							{
-								out.println("<h3> Platz: " + iterator + "/" + list.size() + "Team: " + team.TeamNr
+								out.println("<h3> Platz: " + iterator + "/" + list.size() + " Team: " + team.TeamNr
 										+ "Aufgaben gelöst: " + team.BestandeneAufgabeCount + "/" + team.Aufgaben.size()
 										+ "</h3>");
-								out.println("<div>");
-								for (String aufgabe : team.Aufgaben)
+								out.println("<div id='container'>");
+								for (AufgabenDisplayLaborgruppen aufgabe : team.Aufgaben)
 								{
-									out.println("<p>" + aufgabe + "</p>");
+									if (aufgabe.Bestanden)
+									{
+										out.println("<p>" + "<div id='links'>" + aufgabe.AufgabeNr + " "
+												+ aufgabe.AufgabeText + "</div>" + "<div id='rechts'>"
+												+ "<img class=\"userimage\" src='" + request.getContextPath()
+												+ "/images/green-img.jpg' width='16dpi' alt='image' />" + "</div>"
+												+ "</p>");
+									} else
+									{
+										out.println("<p>" + "<div id='links'>" + aufgabe.AufgabeNr + " "
+												+ aufgabe.AufgabeText + "</div>" + "<div id='rechts'>"
+												+ "<img class=\"userimage\" src='" + request.getContextPath()
+												+ "/images/red-img.jpg' width='16dpi' alt='image' />" + "</div>"
+												+ "</p>");
+									}
 								}
 								out.println("</div>");
 								iterator++;
 							}
 							out.println("</div>");
 							out.println("</body>");
-							out.println("<a href='/LabTallySystem/'>zur&uuml;ck</a>");
 							out.println("</html>");
 						} catch (DataBasePathNotFoundException e)
 						{
@@ -131,7 +144,6 @@ public class LaborgruppenViewServlet extends HttpServlet
 		} else
 		{
 			out.print("You must be signed in to see this page");
-			out.println("<a href='/LabTallySystem/login.html'>zur&uuml;ck</a>");
 		}
 		out.close();
 	}

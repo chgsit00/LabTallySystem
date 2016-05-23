@@ -3,13 +3,16 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Login</title>
+<link rel="stylesheet" href="/LabTallySystem/LabTallySystemStyle.css" />
 </head>
 <body>
-    <form action="LoginServlet" method="post">  
-    TeamNr:<input type="text" name="team"><br>  
-    RechnerNr:<input type="text" name="rechnernr"><br>  
-    Password:<input type="password" name="password"><br>  
-    <input type="submit" value="login">  
-    </form>  
+	<div id="Login">
+		<form action="LoginServlet" method="post">
+			    <div class = "left">TeamNr:</div> <div class = "right"> <input type="text" name="team"> </div> <br>
+			    <div class = "left">RechnerNr:</div> <div class = "right"> <input type="text" name="rechnernr"> </div> <br>
+			    <div class = "left">Password:</div> <div class = "right"> <input type="password" name="password"> </div> <br>
+			    <input type="submit" value="login">
+		</form>
+	</div>
 </body>
 </html>

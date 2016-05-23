@@ -1,11 +1,21 @@
 @CHARSET "ISO-8859-1";
 
-.Laborblatt{
+body {
+	background-color: black;
+	color: #7bff7d;
+}
+
+a {
+	background-color: black;
+	color: #7bff7d;
+}
+
+.Laborblatt {
 	clear: both;
 	padding: 10px;
 	float: bottom;
-	border-width:2px;
-	border-style:solid;
+	border-width: 2px;
+	border-style: solid;
 	display: block;
 }
 
@@ -15,7 +25,9 @@
 	display: inline;
 	margin: 10px;
 	border: 1px;
-	border-style:solid;
+	border-style: solid;
+	cursor: pointer;
+	padding: 5px;
 }
 
 .LaborblattSelected {
@@ -23,7 +35,9 @@
 	color: black;
 	margin: 10px;
 	border: 1px;
-	border-style:solid;
+	border-style: solid;
+	cursor: pointer;
+	padding: 5px;
 }
 
 .userimage {
@@ -31,11 +45,11 @@
 }
 
 #container {
-		clear: both;
+	clear: both;
 }
 
 #links {
-		display: inline;
+	display: inline;
 }
 
 #rechts {
@@ -55,4 +69,38 @@
 #accordion .ui-accordion-header {
 	background: #2a2a2a;
 	color: #7bff7d;
+}
+
+#Login {
+	width: 20%; position : absolute;
+	top: 40%;
+	left: 40%;
+	display: block;
+	font-size: 10px;
+	font-size: 1.5vw;
+	position: absolute;
+}
+
+#Login .left {
+	display: inline;
+	float: left;
+}
+
+#Login .right {
+	display: inline;
+	float: right;
+}
+
+input[type=submit] {
+	background-color: black;
+	color: #7bff7d;
+	border: 1px; border-style : solid; margin : 10px;
+	padding: 5px;
+	float: right;
+	cursor: pointer;
+	text-decoration: none;
+	font-size: 10px;
+	font-size: 1.5vw;
+	border-style: solid;
+	margin: 10px;
 }

@@ -97,7 +97,8 @@ public class LaborblattViewServlet extends HttpServlet
 							for (LaborblattViewBestandeneAufgaben team : list)
 							{
 								out.println("<h3> Platz: " + iterator + "/" + list.size() + " Team: " + team.TeamNr
-										+ "Aufgaben gelöst: " + team.BestandeneAufgabeCount + "/" + team.Aufgaben.size()
+										+ "<span id='aufgabenGeloest'>" + "Aufgaben gelöst: "
+										+ team.BestandeneAufgabeCount + "/" + team.Aufgaben.size() + "</span>"
 										+ "</h3>");
 								out.println("<div id='container'>");
 								for (AufgabenDisplayLaborblatt aufgabe : team.Aufgaben)

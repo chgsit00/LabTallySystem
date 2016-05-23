@@ -1,8 +1,16 @@
 @CHARSET "ISO-8859-1";
 
+html {
+	background-image: url("background.jpg");
+}
+
 body {
+	margin: auto;
+	width: 80%;
 	background-color: black;
 	color: #7bff7d;
+	width: 80%;
+
 }
 
 a {
@@ -11,12 +19,24 @@ a {
 }
 
 .Laborblatt {
-	clear: both;
+	clear: both; //
 	padding: 10px;
 	float: bottom;
 	border-width: 2px;
 	border-style: solid;
 	display: block;
+}
+
+.Aufgabe {
+	padding: 10px;
+}
+
+.LaborblattHeader {
+	background-color: #2a2a2a;
+	padding: 7px;
+	border-width: 1px;
+	border-style: solid;
+	border-color: white;
 }
 
 .LaborblattNav {
@@ -41,7 +61,7 @@ a {
 }
 
 .userimage {
-	
+	background-color:black;
 }
 
 #container {
@@ -72,29 +92,37 @@ a {
 }
 
 #Login {
-	width: 20%; position : absolute;
+	width: 20%;
+	position: absolute;
 	top: 40%;
 	left: 40%;
 	display: block;
-	font-size: 10px;
-	font-size: 1.5vw;
+	font-size: 18px;
+	font-size: 1.8vw;
 	position: absolute;
+	padding: 10px;
 }
 
 #Login .left {
+	height: 30px;
 	display: inline;
 	float: left;
+	background-color: black;
 }
 
 #Login .right {
+	height: 30px;
 	display: inline;
 	float: right;
+	background-color: black;
 }
 
 input[type=submit] {
 	background-color: black;
 	color: #7bff7d;
-	border: 1px; border-style : solid; margin : 10px;
+	border: 1px;
+	border-style: solid;
+	margin: 10px;
 	padding: 5px;
 	float: right;
 	cursor: pointer;

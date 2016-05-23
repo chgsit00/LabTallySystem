@@ -96,7 +96,7 @@ public class LaborblattServlet extends HttpServlet
 					{
 
 						out.println("<div id=\"Blatt" + iterator + "\" class = \"Laborblatt Blatt" + iterator + "\">");
-						out.println("<h3> Laborblatt: " + iterator + "</h3>");
+						out.println("<div class=\"LaborblattHeader\"> <h3> Laborblatt: " + iterator + "</h3> </div>");
 						out.println(
 								"<form action=\"LaborblattServlet\" method=\"post\" enctype=\"multipart/form-data\">");//
 						for (Aufgabe aufgabe : laborblatt.Aufgaben)

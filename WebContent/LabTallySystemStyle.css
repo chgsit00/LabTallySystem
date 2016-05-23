@@ -27,6 +27,32 @@
 }
 
 .userimage {
+	
+}
+
+#container {
+		clear: both;
+}
+
+#links {
+		display: inline;
+}
+
+#rechts {
 	float: right;
-	margin-right: 500px;
+	display: inline;
+}
+
+#aufgabenGeloest {
+	float: right;
+}
+
+#accordion .ui-accordion-content {
+	background: #000000;
+	color: #7bff7d;
+}
+
+#accordion .ui-accordion-header {
+	background: #2a2a2a;
+	color: #7bff7d;
 }

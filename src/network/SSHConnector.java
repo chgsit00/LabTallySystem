@@ -1,5 +1,9 @@
 package network;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
 import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.Session;
@@ -8,12 +12,12 @@ public class SSHConnector
 {
 	public static void main(String args[])
 	{
-		String user = "user"; // TODO: Richtigen User eintragen
-		String password = "passwort"; // TODO: Richtiges Passwort angeben
-		String host = "localhost";
+		String user = "john";
+		String password = "mypassword";
+		String host = "192.168.0.1";
 		int port = 22;
 
-		String remoteFile = "/home/bob/secret1.txt";
+		String remoteFile = "/home/john/test.txt";
 
 		try
 		{
@@ -28,6 +32,14 @@ public class SSHConnector
 			ChannelSftp sftpChannel = (ChannelSftp) session.openChannel("sftp");
 			sftpChannel.connect();
 			System.out.println("SFTP Channel created.");
+
+			InputStream out = null;
+			out = sftpChannel.get(remoteFile);
+			BufferedReader br = new BufferedReader(new InputStreamReader(out));
+			String line;
+			while ((line = br.readLine()) != null)
+				System.out.println(line);
+			br.close();
 		} catch (Exception e)
 		{
 			System.err.print(e);

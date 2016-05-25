@@ -78,9 +78,22 @@ public class servlet1 extends HttpServlet
 					int iterator = 1;
 					for (TeamOverview team : list)
 					{
-						out.println("<h3> Platz: " + iterator + "/" + list.size() + " Team: " + team.TeamNr
-								+ "<span id='aufgabenGeloest'>" + "Aufgaben gelöst: " + team.BestandeneAufgabeCount
-								+ "/" + team.Aufgaben.size() + "</span>" + "</h3>");
+						out.println("<h3>");
+						if (teamNr.equals(team.TeamNr))
+						{
+							out.println("<span id=\"markiert\">");
+						}
+
+						out.println("Platz: " + iterator + "/" + list.size());
+						out.println("Team: " + team.TeamNr);
+						out.println("<span id='aufgabenGeloest'>" + "Aufgaben gelöst: " + team.BestandeneAufgabeCount
+								+ "/" + team.Aufgaben.size() + "</span>");
+
+						if (teamNr.equals(team.TeamNr))
+						{
+							out.println("</span>");
+						}
+						out.println("</h3>");
 						out.println("<div id='container'>");
 						for (AufgabenDisplay aufgabe : team.Aufgaben)
 						{

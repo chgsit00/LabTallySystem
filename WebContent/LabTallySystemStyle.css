@@ -136,3 +136,8 @@ input[type=submit] {
 	border-style: solid;
 	margin: 10px;
 }
+
+#markiert {
+	color: #06ff0d;
+	font-weight: bold;
+}

@@ -139,7 +139,6 @@ public class LaborgruppenViewServlet extends HttpServlet
 				} else
 				{
 					out.print("This Laborslot does not exist");
-					request.getRequestDispatcher("LaborSlotView.html").include(request, response);
 				}
 			}
 		} else

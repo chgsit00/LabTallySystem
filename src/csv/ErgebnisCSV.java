@@ -1,8 +1,9 @@
 package csv;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -31,7 +32,8 @@ public class ErgebnisCSV
 				CSVFilePathPropertyInitializer initializer = new CSVFilePathPropertyInitializer();
 				String csvFilePath = initializer.GetCSVFilePath();
 
-				BufferedReader br = new BufferedReader(new FileReader(csvFilePath + "Ergebnis.csv"));
+				BufferedReader br = new BufferedReader(
+						new InputStreamReader(new FileInputStream(csvFilePath + "Ergebnis.csv"), "UTF8"));
 				String line;
 				line = br.readLine();
 				while ((line = br.readLine()) != null)

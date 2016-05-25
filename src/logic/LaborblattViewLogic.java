@@ -91,8 +91,20 @@ public class LaborblattViewLogic
 			@Override
 			public int compare(LaborblattViewBestandeneAufgaben overView2, LaborblattViewBestandeneAufgaben overView1)
 			{
-
-				return overView1.BestandeneAufgabeCount.compareTo(overView2.BestandeneAufgabeCount);
+				int c;
+				c = overView1.BestandeneAufgabeCount.compareTo(overView2.BestandeneAufgabeCount);
+				if (c == 0)
+					if (overView1.localDateTime.isAfter(overView2.localDateTime))
+					{
+						c = -1;
+					} else if (overView1.localDateTime.isEqual(overView2.localDateTime))
+					{
+						c = 0;
+					} else if (overView1.localDateTime.isBefore(overView2.localDateTime))
+					{
+						c = 1;
+					}
+				return c;
 			}
 		});
 		return laborblattViewBestandeneAufgabenList;

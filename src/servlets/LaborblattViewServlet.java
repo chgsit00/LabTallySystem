@@ -139,7 +139,6 @@ public class LaborblattViewServlet extends HttpServlet
 				} else
 				{
 					out.print("This Laborblatt does not exist");
-					request.getRequestDispatcher("LaborBlattView.html").include(request, response);
 				}
 			}
 		} else

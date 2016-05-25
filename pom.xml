@@ -38,6 +38,12 @@
   		<groupId>org.primefaces</groupId>
   		<artifactId>primefaces</artifactId>
   	</dependency>
+  	<dependency>
+  		<groupId>com.jcraft</groupId>
+  		<artifactId>jsch</artifactId>
+  		<version>0.1.53</version>
+  		<scope>provided</scope>
+  	</dependency>
   </dependencies>
   <dependencyManagement>
   	<dependencies>

@@ -94,13 +94,17 @@ a {
 #Login {
 	width: 20%;
 	position: absolute;
-	top: 40%;
+	top: 30%;
 	left: 35%;
 	display: block;
 	font-size: 24px;
 	//font-size: 1.8vw;
 	position: absolute;
 	padding: 10px;
+}
+
+#Login h3{
+	background-color: black;
 }
 
 #Login .left {

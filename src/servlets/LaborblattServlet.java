@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -38,11 +40,13 @@ public class LaborblattServlet extends HttpServlet
 	private static final int MAX_REQUEST_SIZE = 1024 * 1024 * 50; // 50MB
 
 	private List<String> UsedUploadFields;
+	private List<String> UsedInputFields;
 
 	public LaborblattServlet()
 	{
 		super();
 		UsedUploadFields = new ArrayList<String>();
+		UsedInputFields = new ArrayList<String>();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
@@ -62,7 +66,6 @@ public class LaborblattServlet extends HttpServlet
 			} else
 			{
 				LaborblattLogic laborblattlogic = new LaborblattLogic();
-				ErgebnisLogic ergebnislogic = new ErgebnisLogic();
 				try
 				{
 					List<LaborblattView> laborblattViews = laborblattlogic.GetLaborblattViews();
@@ -108,15 +111,20 @@ public class LaborblattServlet extends HttpServlet
 							{
 								out.println("Your Answer: <input type=\"text\" name=\"eingabe" + aufgabe.AufgabeNr
 										+ "\"><br>");
-								String eingabe = request.getParameter("eingabe" + aufgabe.AufgabeNr);
-								List<String> messages = ergebnislogic.HandleErgebnis(teamNr, aufgabe.AufgabeNr,
-										rechnerNr, eingabe);
-								out.println("<div class = \"Message\">");
-								for (String message : messages)
-								{
-									out.println("<p>" + message + "</p>");
-								}
-								out.println("</div>");
+								UsedInputFields.add(aufgabe.AufgabeNr);
+								// String eingabe =
+								// request.getParameter("eingabe" +
+								// aufgabe.AufgabeNr);
+								// List<String> messages =
+								// ergebnislogic.HandleErgebnis(teamNr,
+								// aufgabe.AufgabeNr,
+								// rechnerNr, eingabe);
+								// out.println("<div class = \"Message\">");
+								// for (String message : messages)
+								// {
+								// out.println("<p>" + message + "</p>");
+								// }
+								// out.println("</div>");
 							} else if (aufgabe.EingabeArt.equals("Upload"))
 							{
 								out.println("Select file to upload: <input type=\"file\" name=\"" + aufgabe.AufgabeNr
@@ -153,94 +161,94 @@ public class LaborblattServlet extends HttpServlet
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 		HttpSession session = request.getSession();
+		List<String> messages = new ArrayList<String>();
+		ErgebnisLogic ergebnislogic = new ErgebnisLogic();
 		if (session != null)
 		{
 			String rechnerNr = (String) session.getAttribute("rechnerNr");
 			String teamNr = (String) session.getAttribute("teamNr");
+			List<String> inputList = new ArrayList<String>();
+			inputList.add("<h2>Text Input</h2>");
 
-			// checks if the request actually contains upload file
-			if (!ServletFileUpload.isMultipartContent(request))
+			for (String inputfield : UsedInputFields)
 			{
-				PrintWriter writer = response.getWriter();
-				writer.println("Request does not contain upload data");
-				writer.flush();
-				return;
-			}
-
-			ErgebnisLogic ergebnisLogic = new ErgebnisLogic();
-			// configures upload settings
-			DiskFileItemFactory factory = new DiskFileItemFactory();
-			factory.setSizeThreshold(THRESHOLD_SIZE);
-			factory.setRepository(new File(System.getProperty("java.io.tmpdir")));
-
-			ServletFileUpload upload = new ServletFileUpload(factory);
-			upload.setFileSizeMax(MAX_FILE_SIZE);
-			upload.setSizeMax(MAX_REQUEST_SIZE);
-
-			// constructs the directory path to store upload file
-			String uploadPath = getServletContext().getRealPath("") + File.separator + UPLOAD_DIRECTORY;
-			// creates the directory if it does not exist
-			File uploadDir = new File(uploadPath);
-			if (!uploadDir.exists())
-			{
-				uploadDir.mkdir();
-			}
-
-			for (String uploadField : UsedUploadFields)
-			{
+				String eingabe = request.getParameter("eingabe" + inputfield);
 				try
 				{
-					Part filePart = request.getPart(uploadField); // Retrieves
-																	// <input
-					// type="file"
-					// name="file">
-					InputStream filecontent = filePart.getInputStream();
-					System.out.println(uploadField);
-					List<String> messages = ergebnisLogic.HandleErgebnis(teamNr, uploadField, rechnerNr, filecontent);
-					for (String message : messages)
+					inputList.add("<h3>Aufgabe: " + inputfield + "</h3>");
+					inputList.addAll(ergebnislogic.HandleErgebnis(teamNr, inputfield, rechnerNr, eingabe));
+					for (String message : inputList)
 					{
 						System.out.println(message);
 					}
-					// parses the request's content to extract file data
-					// List<FileItem> formItems =
-					// upload.parseRequest((RequestContext)
-					// request);
-					// Iterator<FileItem> iter = formItems.iterator();
-					// ErgebnisLogic ergebnisLogic = new ErgebnisLogic();
-					// // iterates over form's fields
-					// while (iter.hasNext())
-					// {
-					// System.out.println("Hier3"); //
-					// FileItem item = (FileItem) iter.next();
-					// // processes only fields that are not form fields
-					// if (!item.isFormField())
-					// {
-					// System.out.println("Hier4"); //
-					// String fileName = new File(item.getName()).getName();
-					// String filePath = uploadPath + File.separator + fileName;
-					// File storeFile = new File(filePath);
-					// String fieldName = item.getName();
-					// System.out.println(fieldName);
-					// // List<String> messages =
-					// // ergebnisLogic.HandleErgebnis(teamNr, aufgabeNr,
-					// // rechnerNr, input)
-					//
-					// // saves the file on disk
-					// item.write(storeFile);
-					//
-					// }
-					// }
-					request.setAttribute("message", "Upload has been done successfully!");
-				} catch (Exception ex)
+				} catch (DataBasePathNotFoundException e)
 				{
-					System.out.println("There was an error: " + ex.getMessage());
-					request.setAttribute("message", "There was an error: " + ex.getMessage());
+					e.printStackTrace();
+				} catch (NoAccessToDataBaseException e)
+				{
+					e.printStackTrace();
 				}
 			}
-			// getServletContext().getRequestDispatcher("/message.jsp").forward(request,
-			// response);
+			messages.addAll(inputList);
+			// checks if the request actually contains upload file
+			if (ServletFileUpload.isMultipartContent(request))
+			{
+				// configures upload settings
+				DiskFileItemFactory factory = new DiskFileItemFactory();
+				factory.setSizeThreshold(THRESHOLD_SIZE);
+				factory.setRepository(new File(System.getProperty("java.io.tmpdir")));
+
+				ServletFileUpload upload = new ServletFileUpload(factory);
+				upload.setFileSizeMax(MAX_FILE_SIZE);
+				upload.setSizeMax(MAX_REQUEST_SIZE);
+
+				// constructs the directory path to store upload file
+				String uploadPath = getServletContext().getRealPath("") + File.separator + UPLOAD_DIRECTORY;
+				// creates the directory if it does not exist
+				File uploadDir = new File(uploadPath);
+				if (!uploadDir.exists())
+				{
+					uploadDir.mkdir();
+				}
+
+				List<String> uploadList = new ArrayList<String>();
+				uploadList.add("<h2>Uploads</h2>");
+				for (String uploadField : UsedUploadFields)
+				{
+					try
+					{
+						Part filePart = request.getPart(uploadField); // Retrieves
+																		// <input
+						// type="file"
+						// name="file">
+						InputStream filecontent = filePart.getInputStream();
+						System.out.println(uploadField);
+						uploadList.add("<h3>Aufgabe: " + uploadField + "</h3>");
+						uploadList.addAll(ergebnislogic.HandleErgebnis(teamNr, uploadField, rechnerNr, filecontent));
+						for (String message : messages)
+						{
+							System.out.println(message);
+						}
+
+						request.setAttribute("message", "Upload has been done successfully!");
+					} catch (Exception ex)
+					{
+						System.out.println("There was an error: " + ex.getMessage());
+						request.setAttribute("message", "There was an error: " + ex.getMessage());
+					}
+				}
+				messages.addAll(uploadList);
+				// getServletContext().getRequestDispatcher("/message.jsp").forward(request,
+				// response);
+			}
 		}
-		doGet(request, response);
+		String url = "/Feedback.jsp"; // relative url for display jsp page
+		ServletContext sc = getServletContext();
+		RequestDispatcher rd = sc.getRequestDispatcher(url);
+		String[] array = messages.toArray(new String[0]);
+		request.setAttribute("messages", array);
+		rd.forward(request, response);
+		// doGet(request, response);
 	}
 
 }

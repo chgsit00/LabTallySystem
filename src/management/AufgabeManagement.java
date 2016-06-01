@@ -47,6 +47,9 @@ public class AufgabeManagement
 					}
 				} else
 				{
+					message = "Save not possible - EingabeArt: \"" + eingabeArt
+							+ "\" doesn't exist. Use \"Automatic\", \"ManualInput\" or \"Upload\"";
+					System.out.println(message);
 					throw new EingabeArtInputWrongException();
 				}
 			} else

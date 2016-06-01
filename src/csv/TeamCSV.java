@@ -10,6 +10,7 @@ import java.sql.Statement;
 
 import exceptions.CSVFilePathNotFoundException;
 import exceptions.NoAccessToDataBaseException;
+import management.TeamManagement;
 
 public class TeamCSV
 {
@@ -40,7 +41,10 @@ public class TeamCSV
 				{
 					String[] values = line.split(";"); // your seperator
 
-					statement.executeUpdate("INSERT INTO Team VALUES('" + values[0] + "','" + values[1] + "');");
+					TeamManagement teamManagement = new TeamManagement();
+					teamManagement.SaveTeam(values[0], values[1]);
+					// statement.executeUpdate("INSERT INTO Team VALUES('" +
+					// values[0] + "','" + values[1] + "');");
 				}
 				br.close();
 			} else

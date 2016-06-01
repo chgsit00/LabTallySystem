@@ -10,6 +10,7 @@ import java.sql.Statement;
 
 import exceptions.CSVFilePathNotFoundException;
 import exceptions.NoAccessToDataBaseException;
+import management.EinteilungManagement;
 
 public class EinteilungCSV
 {
@@ -40,7 +41,10 @@ public class EinteilungCSV
 				{
 					String[] values = line.split(";"); // your seperator
 
-					statement.executeUpdate("INSERT INTO Einteilung VALUES('" + values[0] + "','" + values[1] + "');");
+					EinteilungManagement einteilungManagement = new EinteilungManagement();
+					einteilungManagement.SaveEinteilung(values[0], values[1]);
+					// statement.executeUpdate("INSERT INTO Einteilung VALUES('"
+					// + values[0] + "','" + values[1] + "');");
 				}
 				br.close();
 			} else

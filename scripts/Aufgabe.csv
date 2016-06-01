@@ -9,3 +9,4 @@ AufgabeNr;LaborblattNr;AufgabeText;EingabeArt
 8;1;Upload Sample;Upload
 9;1;Upload Sample;Upload
 10;3;Button klicken für automatische Prüfung;Automatic
+11;3;Was ist Bobs IP-Adresse ?;ManualInput

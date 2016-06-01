@@ -110,16 +110,32 @@ public class ErgebnisLogic
 
 	private boolean Compare_Ergebnis_to_Loesung(String loesung, String eingabe)
 	{
-		if (loesung.equals(eingabe))
+		if (eingabe != null && loesung != null)
 		{
-			return true;
+			String regex = ".*\\s" + loesung + "\\s.*";
+			String regex2 = loesung + "\\s.*";
+			String regex3 = ".*\\s" + loesung;
+
+			if (loesung.equals(eingabe))
+			{
+				return true;
+			} else if (eingabe.matches(regex))
+			{
+				return true;
+			} else if (eingabe.matches(regex2))
+			{
+				return true;
+			} else if (eingabe.matches(regex3))
+			{
+				return true;
+			} else
+				return false;
 		} else
 			return false;
 	}
 
 	private String GetFileContent(InputStream file)
 	{
-
 		BufferedReader reader = new BufferedReader(new InputStreamReader(file));
 		StringBuilder out = new StringBuilder();
 		String line;

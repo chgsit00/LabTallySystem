@@ -81,8 +81,8 @@ public class PortScanner
 	{
 		// List<Future<Port>> ports = ScanPorts("192.168.0.1");
 		// PrintPorts(ports);
-		// SimplePortScan("localhost");
-		NMapScan();
+		SimplePortScan("localhost");
+		// NMapScan();
 	}
 
 	public static void SimplePortScan(final String ip)

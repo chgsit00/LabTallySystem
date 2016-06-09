@@ -45,12 +45,12 @@ public class LaborblattServlet extends HttpServlet
 	public LaborblattServlet()
 	{
 		super();
-		UsedUploadFields = new ArrayList<String>();
-		UsedInputFields = new ArrayList<String>();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
+		UsedUploadFields = new ArrayList<String>();
+		UsedInputFields = new ArrayList<String>();
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		request.getRequestDispatcher("link.html").include(request, response);

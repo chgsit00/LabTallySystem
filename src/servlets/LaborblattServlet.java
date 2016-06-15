@@ -45,12 +45,12 @@ public class LaborblattServlet extends HttpServlet
 	public LaborblattServlet()
 	{
 		super();
-		UsedUploadFields = new ArrayList<String>();
-		UsedInputFields = new ArrayList<String>();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
+		UsedUploadFields = new ArrayList<String>();
+		UsedInputFields = new ArrayList<String>();
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		request.getRequestDispatcher("link.html").include(request, response);
@@ -238,17 +238,15 @@ public class LaborblattServlet extends HttpServlet
 					}
 				}
 				messages.addAll(uploadList);
-				// getServletContext().getRequestDispatcher("/message.jsp").forward(request,
-				// response);
 			}
 		}
-		String url = "/Feedback.jsp"; // relative url for display jsp page
+		String url = "/Feedback.jsp";
 		ServletContext sc = getServletContext();
 		RequestDispatcher rd = sc.getRequestDispatcher(url);
 		String[] array = messages.toArray(new String[0]);
 		request.setAttribute("messages", array);
 		rd.forward(request, response);
-		// doGet(request, response);
+		// doGet(request, response); //Anzeige für die Laborblätter
 	}
 
 }

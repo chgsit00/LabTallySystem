@@ -16,7 +16,9 @@ public class SSHConnector
 	private String Password = "";
 	private String Host = "192.168.56.101";
 	private int Port = 22;
-	private String command1 = "ssh -o StrictHostKeyChecking=no 192.168.56.100 uptime ; ssh 192.168.56.101 'bash -s' < ./Desktop/script";
+	// private String command1 = "ssh -o StrictHostKeyChecking=no 192.168.56.100
+	// uptime ; ssh 192.168.56.101 'bash -s' < ./Desktop/script";
+	private String Command = "ssh-keygen -f '/home/chris/.ssh/known_hosts' -R HOSTNAME; ssh 192.168.56.101 'bash -s' < ./Desktop/script";
 
 	public SSHConnector(String ipAddress, String userName, String password)
 	{
@@ -25,9 +27,8 @@ public class SSHConnector
 		Host = ipAddress;
 	}
 
-	public Session EstablishSHHConnection() throws JSchException
+	public Session EstablishSSHConnection() throws JSchException
 	{
-
 		JSch jsch = new JSch();
 		Session session = jsch.getSession(User, Host, Port);
 		session.setPassword(Password);
@@ -38,8 +39,9 @@ public class SSHConnector
 		return session;
 	}
 
-	public String RunScript(Session session) throws JSchException, SftpException, IOException
+	public String RunScript(Session session, String command) throws JSchException, SftpException, IOException
 	{
+		Command = command;
 		// String remoteFile = "/home/john/test.txt";
 		// System.out.println("Crating SFTP Channel.");
 		// ChannelSftp sftpChannel = (ChannelSftp) session.openChannel("sftp");
@@ -55,7 +57,7 @@ public class SSHConnector
 		// br.close();
 		// return br.lines().toString();
 		Channel channel = session.openChannel("exec");
-		((ChannelExec) channel).setCommand(command1);
+		((ChannelExec) channel).setCommand(Command);
 		channel.setInputStream(null);
 		((ChannelExec) channel).setErrStream(System.err);
 

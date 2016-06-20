@@ -12,7 +12,7 @@ public class networkSSHTester
 {
 	public static void main(final String... args)
 	{
-		SSHConnector connector = new SSHConnector("192.168.56.101", "chris", "gabawillhaba");
+		SSHConnector connector = new SSHConnector("192.168.56.101", "chris", "password");
 
 		Thread t = new Thread()
 		{
@@ -20,8 +20,8 @@ public class networkSSHTester
 			{
 				try
 				{
-					Session session = connector.EstablishSHHConnection();
-					connector.RunScript(session);
+					Session session = connector.EstablishSSHConnection();
+					connector.RunScript(session, "ls");
 				} catch (JSchException e)
 				{
 					e.printStackTrace();

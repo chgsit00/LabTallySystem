@@ -10,7 +10,6 @@ import com.jcraft.jsch.SftpException;
 
 import exceptions.DataBasePathNotFoundException;
 import exceptions.NoAccessToDataBaseException;
-import management.AufgabeManagement;
 import management.RechnerManagement;
 import network.SSHConnector;
 import objects.Rechner;
@@ -24,7 +23,8 @@ public class NetworkLogic
 		{
 			public void run()
 			{
-				AufgabeManagement aufgabeManagement = new AufgabeManagement();
+				// AufgabeManagement aufgabeManagement = new
+				// AufgabeManagement();
 				RechnerManagement rechnerManagement = new RechnerManagement();
 				try
 				{
@@ -32,8 +32,9 @@ public class NetworkLogic
 					if (rechner.RechnerNr != null)
 					{
 						SSHConnector connector = new SSHConnector(rechner.IPAdresse, rechner.Account, rechner.Passwort);
-						Session session = connector.EstablishSHHConnection();
-						connector.RunScript(session);
+						Session session = connector.EstablishSSHConnection();
+						connector.RunScript(session,
+								"ssh-keygen -f '/home/chris/.ssh/known_hosts' -R HOSTNAME; ssh 192.168.56.101 'bash -s' < ./Desktop/script");
 					}
 				} catch (JSchException e)
 				{
